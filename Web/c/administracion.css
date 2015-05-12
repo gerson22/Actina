@@ -1,0 +1,16 @@
+#form_inscripcion
+{
+    background-color: #EEEEEE;
+    padding: 20px 50px;
+}
+
+h3
+{
+    padding: 10px 15px;
+    border-bottom: 1px solid #CCC;
+}
+
+.form-group
+{
+    padding-right: 30px;
+}

@@ -1,0 +1,12 @@
+﻿<Window x:Class="LectorApp.MainWindow"
+        WindowStyle="None"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Actina" Height="400" Width="525" ResizeMode="NoResize">
+    <Grid Background="#FFE1ECFF">
+        <Label Content="Conexión:&#xD;&#xA;" HorizontalAlignment="Left" Margin="50,25,0,0" VerticalAlignment="Top" Width="100" Height="25" HorizontalContentAlignment="Right"/>
+        <Grid HorizontalAlignment="Left" Height="2" Margin="102,137,0,0" VerticalAlignment="Top" Width="3"/>
+        <Label x:Name="ConexionLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="155,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.895,0.308" Width="100" Height="25"/>
+        <Button x:Name="bSalirClicked" Content="Salir" HorizontalAlignment="Left" Margin="404,112,0,0" VerticalAlignment="Top" Width="100" Height="40" Background="#FFE3F5FB" Click="Button_Click"/>
+    </Grid>
+</Window>

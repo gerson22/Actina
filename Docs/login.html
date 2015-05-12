@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <form class="form-horizontal" id="form_login">
+        <!-- Form Name -->
+        <div class="form-group text-center">
+            <img src="i/logo.png" class="img-responsive" id="login_logo" alt="Iniciar sesión" />
+        </div>
+        <br>
+        </br>
+        <div id="error_login" class="text-center error-msg">Error en el usuario o contraseña</div>
+        <!-- Text input-->
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="userVal"><!-- USUARIO--></label>
+            <div class="col-md-4">
+                <input id="userVal" type="text" placeholder="Usuario" class="form-control input-md" required >
+            </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="passVal"><!-- CONTRASEÑA--></label>
+            <div class="col-md-4">
+                <input id="passVal" type="password" placeholder="Contraseña" class="form-control input-md" >
+            </div>
+        </div>
+
+        <div class="form-group text-center">
+            <button class="btn btn-large btn-primary" type="button" id="login_boton" onclick="login()">Aceptar</button>
+        </div>
+    </form>
+</div>

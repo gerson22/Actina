@@ -1,0 +1,5 @@
+﻿Proyecto en 4 partes:
+- Web (PHP backend)
+- LectorApp (c#, WPF)
+- Websockets (PHP backend)
+- API (PHP backend)

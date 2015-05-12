@@ -1,0 +1,21 @@
+#form_inscripcion
+{
+    margin-top: 80px;
+}
+
+.form-group
+{
+    padding: 15px;
+}
+
+.foto_wrapper
+{
+    width: 200px;
+    height: 200px;
+}
+
+#foto
+{
+    max-width: 200px;
+    max-height: 200px;
+}

@@ -1,0 +1,15 @@
+C:\Dev\Actina\LectorApp\bin\Debug\LectorApp.exe.config
+C:\Dev\Actina\LectorApp\bin\Debug\LectorApp.exe
+C:\Dev\Actina\LectorApp\bin\Debug\LectorApp.pdb
+C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.csprojResolveAssemblyReference.cache
+C:\Dev\Actina\LectorApp\obj\Debug\MainWindow.baml
+C:\Dev\Actina\LectorApp\obj\Debug\MainWindow.g.cs
+C:\Dev\Actina\LectorApp\obj\Debug\App.g.cs
+C:\Dev\Actina\LectorApp\obj\Debug\LectorApp_MarkupCompile.cache
+C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.g.resources
+C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.Properties.Resources.resources
+C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.csproj.GenerateResource.Cache
+C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.exe
+C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.pdb
+C:\Dev\Actina\LectorApp\bin\Debug\websocket-sharp.dll
+C:\Dev\Actina\LectorApp\bin\Debug\websocket-sharp.xml
