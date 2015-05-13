@@ -3,19 +3,25 @@
     margin-top: 80px;
 }
 
-.form-group
+h3
 {
-    padding: 15px;
+    width: 100%;
+    margin: 40px 0px 10px 16px;
+    border-bottom: 1px solid #C1C1B6;
+    float: left;
 }
 
-.foto_wrapper
+#status
+{
+    color: red;
+}
+
+#barra_botones
+{
+    margin-top: 20px;
+}
+
+button
 {
     width: 200px;
-    height: 200px;
-}
-
-#foto
-{
-    max-width: 200px;
-    max-height: 200px;
 }

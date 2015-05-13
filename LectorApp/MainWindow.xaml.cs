@@ -17,6 +17,7 @@ namespace LectorApp
             WS = new WebSocket("ws://localhost:8080");
 
             WS.OnOpen += conexionAbierta;
+            WS.OnMessage += (sender, e) => mensajeRecibido(e.Data);
 
             WS.Connect();
         }
@@ -24,6 +25,18 @@ namespace LectorApp
         void conexionAbierta(object sender, EventArgs e)
         {
             WS.Send("lectorStandby");
+        }
+
+        void mensajeRecibido(string mensaje)
+        {
+            switch (mensaje)
+            {
+                case "ping":
+                    if(WS.IsAlive && true) WS.Send("lectorStandby");
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
