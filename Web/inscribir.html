@@ -116,9 +116,8 @@
 
     function inscribirHuella()
     {
-        alert("Introduzca el dedo 5 veces");
-        connection.send("iniciarRegistroHuella");
-        progressBar(20);
+        alert("Introduzca el dedo 4 veces");
+        connection.send("inscribirHuella");
     }
 
     function progressBar(cambio)
@@ -150,10 +149,23 @@
         connection.onmessage = function (e)
         {
             console.log("Mensaje: " + e.data);
-            switch (e.data)
+            var datos = $.parseJSON(e.data);
+            document.getElementById("huella").src = "data:image/png;base64," + datos.data.Bytes;
+            switch (datos.code)
             {
-                case "lectorStandby": $("#status").html("Disponible"); $("#status").css("color", "green"); break;
-                case "lectorOff": $("#status").html("No disponible"); break;
+                case "1": $("#status").html("Disponible"); $("#status").css("color", "green"); break;
+                case "2": $("#status").html("No disponible"); $("#status").css("color", "red"); break;
+                case "3": progressBar(25); break;
+                case "4": console.log("FMD serializado: " + datos.data);
+                    var bytes = [];
+                    var hue = datos.data.Bytes;
+                        console.log("hue: " + hue);
+                    for (var i = 0; i < hue.length; ++i)
+                    {
+                        bytes.push(hue.charCodeAt(i));
+                    }
+                    document.getElementById("huella").src = "data:image/png;base64," + hue;
+                    break;
                 default: break;
             }
         };
