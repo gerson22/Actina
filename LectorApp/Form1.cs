@@ -8,20 +8,22 @@ namespace LectorApp
     {
         Lector lector;
         Sockets socket;
+        Servidor servidor;
 
         public Form1()
         {
             InitializeComponent();
 
-            iniciarLector();
-            iniciarWebSockets();
+            IniciarLector();
+            IniciarServidor();
+            IniciarWebSockets();
         }
 
-        void iniciarLector()
+        void IniciarLector()
         {
             try
             {
-                lector = new Lector(this);
+                lector = new Lector();
                 lector.inicializar();
                 rtbEventos.AppendText("Lector iniciado.\n");
             }
@@ -31,7 +33,12 @@ namespace LectorApp
             }
         }
 
-        void iniciarWebSockets()
+        void IniciarServidor()
+        {
+            servidor = new Servidor(this);
+        }
+
+        void IniciarWebSockets()
         {
             socket = new Sockets(this);
         }
@@ -49,6 +56,8 @@ namespace LectorApp
                     rtbEventos.AppendText("Huella enviada.\n");
                     break;
                 default:
+                    if (mensaje.Length >= 50) mensaje = mensaje.Substring(0, 50);
+                    rtbEventos.AppendText("Mensaje recibido: " + mensaje + ".\n");
                     break;
             }
         }
@@ -57,6 +66,29 @@ namespace LectorApp
         {
             socket.mandarMensaje(2, "lectorApagado");
             this.Close();
+        }
+
+        private void bIniciar_Click(object sender, EventArgs e)
+        {
+            if (servidor.iniciarServidor())
+            {
+                rtbEventos.AppendText("Servidor iniciado en el puerto " + servidor.Puerto + ".\n");
+            }
+            else
+            {
+                rtbEventos.AppendText("Servidor detenido.\n");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            socket.mandarMensaje(0, tbMensaje.Text);
+        }
+
+        private void bIniciarCliente_Click(object sender, EventArgs e)
+        {
+            socket.Conectar();
+            rtbEventos.AppendText("Cliente socket conectado\n");
         }
     }
 }

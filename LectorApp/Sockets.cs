@@ -11,17 +11,26 @@ namespace LectorApp
         public Sockets(Form1 forma)
         {
             this.forma = forma;
-            WS = new WebSocket("ws://localhost:8080");
+            WS = new WebSocket("ws://localhost:4649/Biometria");
 
             WS.OnOpen += conexionAbierta;
             WS.OnMessage += (sender, e) => forma.mensajeRecibido(e.Data);
+        }
 
+        public void Conectar()
+        {
             WS.Connect();
         }
 
         void conexionAbierta(object sender, EventArgs e)
         {
-            mandarMensaje(1, "lectorActivado");
+            //mandarMensaje(1, "Cliente activado");
+        }
+
+        public bool Status()
+        {
+            if (WS.IsAlive) return true;
+            else return false;
         }
 
         public void mandarMensaje(int codigo, string data)
@@ -32,8 +41,14 @@ namespace LectorApp
             // 4. FMD
             // 5. Huella
 
-            if (codigo == 5) forma.rtbEventos.AppendText("Enviado: " + "{\"code\":\"" + codigo + "\", \"data\": \"Base64string\"}\n");
-            else forma.rtbEventos.AppendText("Enviado: " + "{\"code\":\"" + codigo + "\", \"data\": \"" + data + "\"}\n");
+            if(data.Length > 10)
+            {
+                forma.rtbEventos.AppendText("Enviando mensaje: {'code': '" + codigo + "', 'data': '" + data.Substring(0, 10) + "'\n");
+            }
+            else
+            {
+                forma.rtbEventos.AppendText("Enviando mensaje: {'code': '" + codigo + "', 'data': '" + data + "'\n");
+            }
             WS.Send("{\"code\":\"" + codigo + "\", \"data\": \"" + data + "\"}");
         }
     }

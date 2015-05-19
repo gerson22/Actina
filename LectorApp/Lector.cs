@@ -12,11 +12,11 @@ namespace LectorApp
     class Lector
     {
         public Reader lector;
-        Form1 forma;
+        string base64String;
 
-        public Lector(Form1 forma)
+        public Lector()
         {
-            this.forma = forma;
+
         }
 
         public void inicializar()
@@ -41,10 +41,10 @@ namespace LectorApp
                 CaptureAndExtractFmd(5, socket)
             );
 
+            socket.mandarMensaje(5, base64String);
             Fmd fmd = enrollmentResult.Data;
 
             return Fmd.SerializeXml(fmd);
-            //return JsonConvert.SerializeObject(fmd);
         }
 
         IEnumerable<Fmd> CaptureAndExtractFmd(int lecturas, Sockets socket)
@@ -62,21 +62,24 @@ namespace LectorApp
                         lector.Capabilities.Resolutions[0]
                     );
 
-                    Bitmap bmp = new Bitmap(150, 150);
-                    foreach (Fid.Fiv fiv in captureResult.Data.Views)
+                    if(no_lecturas == 0)
                     {
-                        bmp = CreateBitmap(fiv.RawImage, fiv.Width, fiv.Height);
+                        Bitmap bmp = new Bitmap(150, 150);
+                        foreach (Fid.Fiv fiv in captureResult.Data.Views)
+                        {
+                            bmp = CreateBitmap(fiv.RawImage, fiv.Width, fiv.Height);
+                        }
+
+                        System.IO.MemoryStream stream = new System.IO.MemoryStream();
+                        bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+                        byte[] imageBytes = stream.ToArray();
+
+                        base64String = Convert.ToBase64String(imageBytes);
                     }
 
-                    System.IO.MemoryStream stream = new System.IO.MemoryStream();
-                    bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-                    byte[] imageBytes = stream.ToArray();
-
-                    string base64String = Convert.ToBase64String(imageBytes);
-                    socket.mandarMensaje(5, base64String);
-                    
                     no_lecturas++;
                     socket.mandarMensaje(3, "Lectura capturada");
+
                     // !!! Check for errors, use ‘yield return null; or break;’ to stop.
                     yield return FeatureExtraction.CreateFmdFromFid(captureResult.Data, Constants.Formats.Fmd.ANSI).Data;
                 }

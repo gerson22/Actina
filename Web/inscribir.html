@@ -103,16 +103,29 @@
                 <button type="button" onclick="inscribir()">Inscribir</button>
             </div>
         </form>
+
+        <input type="text" id="mensajeVal" />
+        <button onclick="enviarMensaje()" >Enviar Msg</button>
     </div>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="/lib/jquery.validate.min.js"></script>
 <script>
+    $(window).on('beforeunload', function(){
+        connection.close();
+    });
+
     var connection;
     var lector_disponible;
 
     conectar();
+
+    function enviarMensaje()
+    {
+        var mensaje = $("#mensajeVal").val();
+        connection.send(mensaje);
+    }
 
     function inscribirHuella()
     {
@@ -133,43 +146,41 @@
 
     function conectar()
     {
-        connection = new WebSocket('ws://localhost:8080');
+        connection = new WebSocket('ws://localhost:4649/Biometria');
 
         connection.onopen = function ()
         {
             console.log("Conexión abierta");
-            checarLector();
+            //checarLector();
         };
 
         connection.onerror = function (error)
         {
-            console.log("Error: " + error);
+            console.log("Error: " + error.data);
+            console.dir(error);
         };
 
         connection.onmessage = function (e)
         {
-            console.log("Mensaje: " + e.data);
-            var datos = $.parseJSON(e.data);
-            switch (datos.code)
+            if(e.data.charAt(0) == "{")
             {
-                case "1": $("#status").html("Disponible"); $("#status").css("color", "green"); break;
-                case "2": $("#status").html("No disponible"); $("#status").css("color", "red"); break;
-                case "3": progressBar(25); break;
-                case "4": console.log("FMD serializado: " + datos.data);
-                    var bytes = [];
-                    var hue = datos.data.Bytes;
-                        console.log("hue: " + hue);
-                    for (var i = 0; i < hue.length; ++i)
-                    {
-                        bytes.push(hue.charCodeAt(i));
-                    }
-                    document.getElementById("huella").src = "data:image/png;base64," + hue;
-                    break;
-                case "5":
-                    $("#huella").removeAttr('src');
-                    $("#huella").attr('src', 'data:image/png;base64,' + datos.data);
-                    break;
-                default: break;
+                var datos = $.parseJSON(e.data);
+                if(datos.code != 5) console.log(datos.data);
+                switch (datos.code)
+                {
+                    case "1": $("#status").html("Disponible"); $("#status").css("color", "green"); break;
+                    case "2": $("#status").html("No disponible"); $("#status").css("color", "red"); break;
+                    case "3": progressBar(25); break;
+                    case "4":
+                        alert("4!");
+                        console.log("FMD serializado: " + datos.data);
+                        break;
+                    case "5":
+                        $("#huella").removeAttr('src');
+                        $("#huella").attr('src', 'data:image/png;base64,' + datos.data);
+                        break;
+                    default: break;
+                }
             }
         };
     }
