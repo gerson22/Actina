@@ -189,7 +189,6 @@
                     case "2": $("#status_lector").html("No disponible"); $("#status_lector").css("color", "red"); break;
                     case "3": progressBar(25); break;
                     case "4":
-                        alert("4!");
                         console.log("FMD serializado: " + datos.data);
                         FMD = datos.data;
                         break;
@@ -235,8 +234,9 @@
                 url: "",
                 headers: { "Authorization": "Basic " + btoa(sessionStorage.getItem("email") + ":" + sessionStorage.getItem("password")) },
                 crossDomain: true,
-                data: "nombre=" + nombre + "&password=" + password + "&email=" + email + "&peso=" + peso
+                data: "nombre=" + nombre + "&email=" + email + "&peso=" + peso
                     + "&altura=" + altura + "&talla=" + talla + "&tipoSub=" + tipoSub
+                    + "FMD=" + FMD
             }).done(function()
             {
                 alert("Cliente registrado");
