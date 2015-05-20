@@ -231,12 +231,12 @@
 
             $.ajax({
                 type: "POST",
-                url: "",
+                url: "http://127.0.0.1/API/usuarios",
                 headers: { "Authorization": "Basic " + btoa(sessionStorage.getItem("email") + ":" + sessionStorage.getItem("password")) },
                 crossDomain: true,
                 data: "nombre=" + nombre + "&email=" + email + "&peso=" + peso
-                    + "&altura=" + altura + "&talla=" + talla + "&tipoSub=" + tipoSub
-                    + "FMD=" + FMD
+                    + "&altura=" + altura + "&talla=" + talla + "&tipoSubscripcionID=" + tipoSub
+                    + "&FMD=" + FMD
             }).done(function()
             {
                 alert("Cliente registrado");

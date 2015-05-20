@@ -67,14 +67,12 @@ class usuarioModelo
         $IMC = 30;
         $vencimiento = null;
         $query = "INSERT INTO usuario SET password = '$password', nombre = '$nombre', email = '$email', peso = $peso, altura = $altura,
-                  IMC = $IMC, talla = $talla, tipoUsuarioID = 2, tipoSubscripcionID = $tipoSubscripcionID, fotoURL = '',
+                  IMC = $IMC, talla = '$talla', tipoUsuarioID = 2, tipoSubscripcionID = $tipoSubscripcionID, fotoURL = '',
                   vencimiento = '$vencimiento', ultimoAcceso = NOW(), clienteDesde = NOW()";
         $userID = APIDatabase::insert($query);
 
-        echo "uno";
         if($FMD != null)
         {
-            echo "dos";
             $usuario = new self($userID);
             $usuario->setFMD($FMD);
         }
