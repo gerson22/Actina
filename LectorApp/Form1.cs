@@ -45,10 +45,12 @@ namespace LectorApp
 
         public void mensajeRecibido(string mensaje)
         {
+            if (mensaje.Length <= 50) Console.WriteLine("[Cliente] Mensaje recibido: " + mensaje);
+            else Console.WriteLine("[Cliente] Mensaje recibido (Trimmed): " + mensaje.Substring(0, 50));
             switch (mensaje)
             {
                 case "ping":
-                    if (socket.WS.IsAlive) socket.mandarMensaje(1, "lectorActivado");
+                    socket.mandarMensaje(1, "lectorActivado");
                     break;
                 case "inscribirHuella":
                     string data = lector.inscribirHuella(socket);

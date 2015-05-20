@@ -44,7 +44,7 @@ namespace LectorApp
             socket.mandarMensaje(5, base64String);
             Fmd fmd = enrollmentResult.Data;
 
-            return Fmd.SerializeXml(fmd);
+            return Fmd.SerializeXml(fmd).Replace("\"", "\\\"");
         }
 
         IEnumerable<Fmd> CaptureAndExtractFmd(int lecturas, Sockets socket)

@@ -1,7 +1,6 @@
 C:\Dev\Actina\LectorApp\bin\Debug\LectorApp.exe.config
 C:\Dev\Actina\LectorApp\bin\Debug\LectorApp.exe
 C:\Dev\Actina\LectorApp\bin\Debug\LectorApp.pdb
-C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.csprojResolveAssemblyReference.cache
 C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.Form1.resources
 C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.Properties.Resources.resources
 C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.csproj.GenerateResource.Cache
@@ -11,3 +10,4 @@ C:\Dev\Actina\LectorApp\bin\Debug\WebSocketSharp.dll
 C:\Dev\Actina\LectorApp\bin\Debug\WebSocketSharp.xml
 C:\Dev\Actina\LectorApp\bin\Debug\Newtonsoft.Json.dll
 C:\Dev\Actina\LectorApp\bin\Debug\Newtonsoft.Json.xml
+C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.csprojResolveAssemblyReference.cache

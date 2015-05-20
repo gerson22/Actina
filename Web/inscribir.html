@@ -86,14 +86,24 @@
             <div id="huella_wrapper" class="col-md-2">
                 <img id="huella" class="img-responsive" src="i/no_disponible.jpg">
             </div>
-            <div id="huella_status" class="col-md-10">
-                Status del lector: <div id="status">No disponible</div>
-                <br />
-                Progreso:
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                         aria-valuemin="0" aria-valuemax="100" style="width:0%" id="progressBar">
-                        0%
+            <div class="col-md-10">
+                <div class="col-md-6">
+                    <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
+                    Status de la conexión websocket: <div id="status_websocket" class="status_text">Desactivada</div>
+                    <br />
+                </div>
+                <div class="col-md-6">
+                    <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
+                    Status del lector: <div id="status_lector" class="status_text">No disponible</div>
+                    <br />
+                </div>
+                <div id="barra_progreso" class="col-md-12">
+                    Progreso:
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100" style="width:0%" id="progressBar">
+                            0%
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,9 +113,6 @@
                 <button type="button" onclick="inscribir()">Inscribir</button>
             </div>
         </form>
-
-        <input type="text" id="mensajeVal" />
-        <button onclick="enviarMensaje()" >Enviar Msg</button>
     </div>
 </div>
 
@@ -118,19 +125,15 @@
 
     var connection;
     var lector_disponible;
+    var FMD;
 
     conectar();
-
-    function enviarMensaje()
-    {
-        var mensaje = $("#mensajeVal").val();
-        connection.send(mensaje);
-    }
 
     function inscribirHuella()
     {
         alert("Introduzca el dedo 4 veces");
         connection.send("inscribirHuella");
+        console.log("Enviando: 'inscribirHuella'");
     }
 
     function progressBar(cambio)
@@ -146,12 +149,16 @@
 
     function conectar()
     {
-        connection = new WebSocket('ws://localhost:4649/Biometria');
+        if(!connection)
+            connection = new WebSocket('ws://localhost:4649/Biometria');
+        else
+            console.log("Conexion ya estába abierta");
 
         connection.onopen = function ()
         {
             console.log("Conexión abierta");
-            //checarLector();
+            $("#status_websocket").html("Activa");
+            $("#status_websocket").css("color", "green");
         };
 
         connection.onerror = function (error)
@@ -159,6 +166,16 @@
             console.log("Error: " + error.data);
             console.dir(error);
         };
+
+        connection.onclose = function ()
+        {
+            connection = null;
+            console.log("Conexión cerrada");
+            $("#status_websocket").html("Desactivada");
+            $("#status_websocket").css("color", "red");
+            $("#status_lector").html("No disponible");
+            $("#status_lector").css("color", "red");
+        }
 
         connection.onmessage = function (e)
         {
@@ -168,12 +185,13 @@
                 if(datos.code != 5) console.log(datos.data);
                 switch (datos.code)
                 {
-                    case "1": $("#status").html("Disponible"); $("#status").css("color", "green"); break;
-                    case "2": $("#status").html("No disponible"); $("#status").css("color", "red"); break;
+                    case "1": $("#status_lector").html("Disponible"); $("#status_lector").css("color", "green"); break;
+                    case "2": $("#status_lector").html("No disponible"); $("#status_lector").css("color", "red"); break;
                     case "3": progressBar(25); break;
                     case "4":
                         alert("4!");
                         console.log("FMD serializado: " + datos.data);
+                        FMD = datos.data;
                         break;
                     case "5":
                         $("#huella").removeAttr('src');
@@ -185,12 +203,20 @@
         };
     }
 
+    function checarWebsocket()
+    {
+        conectar();
+    }
+
     function checarLector()
     {
         if(connection)
         {
             connection.send("ping");
+            console.log("Enviando mensaje: 'ping'");
         }
+        else
+            console.log("No hay conexión con el servidor websockets");
     }
 
     function inscribir()
@@ -198,7 +224,6 @@
         if($("#form_inscripcion").valid())
         {
             var nombre = $("#nombreVal").val();
-            var password = $("#passVal").val();
             var email = $("#emailVal").val();
             var peso = $("#pesoVal").val();
             var altura = $("#alturaVal").val();

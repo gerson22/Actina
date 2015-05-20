@@ -13,7 +13,6 @@ namespace LectorApp
         {
             this._form = forma;
             wssv = new WebSocketServer(4649);
-            wssv.AddWebSocketService<Echo>("/Echo");
             wssv.AddWebSocketService<Biometria>("/Biometria");
         }
         
@@ -43,14 +42,6 @@ namespace LectorApp
         public int Puerto
         {
             get { return wssv.Port; }
-        }
-    }
-
-    public class Echo : WebSocketBehavior
-    {
-        protected override void OnMessage(MessageEventArgs e)
-        {
-            Send(e.Data);
         }
     }
 

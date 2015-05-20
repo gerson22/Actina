@@ -15,6 +15,18 @@ namespace LectorApp
 
             WS.OnOpen += conexionAbierta;
             WS.OnMessage += (sender, e) => forma.mensajeRecibido(e.Data);
+            WS.OnClose += WS_OnClose;
+            WS.OnError += WS_OnError;
+        }
+
+        void WS_OnError(object sender, ErrorEventArgs e)
+        {
+            forma.rtbEventos.AppendText("Cliente error. " + e.Exception + " " + e.Message + "\n");
+        }
+
+        void WS_OnClose(object sender, CloseEventArgs e)
+        {
+            forma.rtbEventos.AppendText("Cliente socket desconectado.\n");
         }
 
         public void Conectar()
@@ -25,12 +37,6 @@ namespace LectorApp
         void conexionAbierta(object sender, EventArgs e)
         {
             //mandarMensaje(1, "Cliente activado");
-        }
-
-        public bool Status()
-        {
-            if (WS.IsAlive) return true;
-            else return false;
         }
 
         public void mandarMensaje(int codigo, string data)

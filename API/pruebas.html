@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Pruebas API</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <style>
+        #div_auth
+        {
+            margin-top: 50px;
+        }
+
+        #div_pruebas
+        {
+            margin-top: 50px;
+        }
+
+        label
+        {
+            padding-left: 2px;
+        }
+
+        button
+        {
+            margin-top: 25px;
+        }
+
+        #respuesta
+        {
+            resize: vertical;
+            min-height: 100px;
+            border-radius: 5px;
+            padding: 20px;
+            border: 1px solid #CCC;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div id="div_auth" class="col-md-4" >
+        <h3>Autorización</h3>
+        <hr />
+        <div class="form-group" >
+            <label>E-mail</label>
+            <input class="form-control" type="email" placeholder="email@domain.com" id="emailVal" />
+        </div>
+        <div class="form-group" >
+            <label>Contraseña</label>
+            <input class="form-control" type="password" placeholder="******" id="passVal" />
+        </div>
+    </div>
+
+    <div id="div_pruebas" class="col-md-8" >
+        <h3>Prueba</h3>
+        <hr />
+        <div class="form-group col-md-2" >
+            <label for="metodo">Verbo</label>
+            <select class="form-control" id="metodo">
+                <option value="post">POST</option>
+                <option value="get">GET</option>
+            </select>
+        </div>
+        <div class="form-group col-md-8" >
+            <label for="apiCall">Método API</label>
+            <select id="apiCall" class="form-control">
+                <option value="usuarios" >usuarios</option>
+                <option value="usuarios/login" >usuarios/login</option>
+                <option value="usuarios/FMD" >usuarios/FMD</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2" >
+            <button class="btn btn-default form-control" type="button" onclick="probarClicked()">Probar</button>
+        </div>
+        <div class="form-group col-md-12">
+            <h3><label for="respuesta">Respuesta</label></h3>
+            <textarea class="col-md-12" id="respuesta">
+
+            </textarea>
+        </div>
+    </div>
+
+</div>
+
+<script src='//code.jquery.com/jquery-2.1.3.min.js' ></script>
+<script>
+    var api_url = "";
+
+    function probarClicked()
+    {
+        $.ajax({
+            type: $("#metodo").val(),
+            url: api_url + $("#apiCall").val(),
+            headers: { "Authorization": "Basic " + btoa($("#emailVal").val() + ":" + $("#passVal").val()) },
+            data: 'nombre=bio&email=bio@mail.com&peso=10&altura=20&talla=30&tipoUsuarioID=1&tipoSubscripcionID=1'
+                + '&FMD=<?xml version="1.0" encoding="UTF-8"?><Fid><Bytes>Rk1SACAyMAAA5gAz/v8AAAD8AUQAxQDFAQAAAFYhgKsAbZ1jQDQAhHFiQHoA/0ZhgF0AzYxgQJ8A2zhggJ4AhkNfQLAAyzhdQFAA7ItdQL4ALUdcQCkAzntXQEsAimxWgDwA0ntWQDoA73xVQCMAU2dTgHYAg55SgFEAtIdRQEcAxoVRQFwA/J1QgMoAujpPQHEA85lPgJsBBABNQEYAjxVGQFMBCYlAgGgAq5Q/gGMAsJA9gLEAhUE8QFsApHo6QJsBC0g4gCwAM2U3QLwA6is2AK0A5zg0AOcAepoyAJMBE6gqAAA=</Bytes><Format>1769473</Format><Version>1.0.0</Version></Fid>',
+            crossDomain: true
+        }).done(function(data){
+            $("#respuesta").val(data);
+        }).fail(function( jqXHR, textStatus, errorThrown )
+        {
+            $("#respuesta").val("Status: " + jqXHR.status + "\n" + errorThrown);
+        });
+    }
+</script>
+
+</body>
+</html>
