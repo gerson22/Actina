@@ -233,7 +233,6 @@
 
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1/API/usuarios",
                 headers: { "Authorization": "Basic " + btoa(sessionStorage.getItem("email") + ":" + sessionStorage.getItem("password")) },
                 crossDomain: true,
                 data: "nombre=" + nombre + "&email=" + email + "&peso=" + peso
