@@ -10,4 +10,3 @@ C:\Dev\Actina\LectorApp\bin\Debug\WebSocketSharp.dll
 C:\Dev\Actina\LectorApp\bin\Debug\WebSocketSharp.xml
 C:\Dev\Actina\LectorApp\bin\Debug\Newtonsoft.Json.dll
 C:\Dev\Actina\LectorApp\bin\Debug\Newtonsoft.Json.xml
-C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.csprojResolveAssemblyReference.cache

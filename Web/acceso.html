@@ -1,0 +1,159 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Actina</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/c/normalize.css">
+    <link rel="stylesheet" href="/c/main.css">
+    <link rel="stylesheet" href="/c/general.css">
+    <link rel="stylesheet" href="/c/status_biometrico.css">
+    <link rel="stylesheet" href="/c/acceso.css">
+    <script src="/lib/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+
+<nav id="menu_top" class="navbar navbar-default navbar-fixed-top" role="navigation" >
+    <div class="container">
+        <a href="/index.php">
+            <img class="icono_left" src="i/icon_home.png" />
+        </a>
+        <a href="/includes/logout.php">
+            <img class="icono" src="i/icon_logout.png" />
+        </a>
+        <a href="/administracion.html">
+            <img class="icono" src="i/icon_administracion.png" />
+        </a>
+    </div>
+</nav>
+
+<div class="container" id="container">
+    <div class="container-fluid">
+
+        <div class="col-md-6">
+            <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
+            Status de la conexión websocket: <div id="status_websocket" class="status_text">Desactivada</div>
+            <br />
+        </div>
+        <div class="col-md-6">
+            <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
+            Status del lector: <div id="status_lector" class="status_text">No disponible</div>
+            <br />
+        </div>
+
+        <div class="col-md-12">
+            <h3>Asistencia: </h3>
+            <ul id="lista">
+                <!-- Lista de clientes entrando... -->
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/lib/main.js"></script>
+<script>
+    $(window).on('beforeunload', function(){
+        connection.send("sleep");
+        connection.close();
+    });
+
+    var connection;
+
+    conectar();
+
+    function conectar()
+    {
+        if(!connection)
+            connection = new WebSocket('ws://localhost:4649/Actina');
+        else
+            console.log("Conexion ya estába abierta");
+
+        connection.onopen = function ()
+        {
+            console.log("Conexión abierta");
+            $("#status_websocket").html("Activa");
+            $("#status_websocket").css("color", "green");
+            checarLector();
+        };
+
+        connection.onerror = function (error)
+        {
+            console.log("Error: " + error.data);
+            console.dir(error);
+        };
+
+        connection.onclose = function ()
+        {
+            connection.send("sleep");
+            connection = null;
+            console.log("Conexión cerrada");
+            $("#status_websocket").html("Desactivada");
+            $("#status_websocket").css("color", "red");
+            $("#status_lector").html("No disponible");
+            $("#status_lector").css("color", "red");
+        }
+
+        connection.onmessage = function (e)
+        {
+            if(e.data.charAt(0) == "{")
+            {
+                var datos = $.parseJSON(e.data);
+                if(datos.code != 5) console.log(datos.data);
+                switch (datos.code)
+                {
+                    case "1":
+                        $("#status_lector").html("Disponible"); $("#status_lector").css("color", "green");
+                        empezarModoAcceso();
+                        break;
+                    case "2": $("#status_lector").html("No disponible"); $("#status_lector").css("color", "red"); break;
+                    case "4":
+                        console.log("FMD serializado: " + datos.data);
+                        FMD = datos.data;
+                        $("#lista").append("<li>" + FMD + "</li>");
+                        break;
+                    case "5":
+                        $("#huella").removeAttr('src');
+                        $("#huella").attr('src', 'data:image/png;base64,' + datos.data);
+                        break;
+                    case "6":
+                        break;
+                    default: break;
+                }
+            }
+        };
+    }
+
+    function checarWebsocket()
+    {
+        conectar();
+    }
+
+    function checarLector()
+    {
+        if(connection)
+        {
+            connection.send("ping");
+            console.log("Enviando mensaje: 'ping'");
+        }
+        else
+            console.log("No hay conexión con el servidor websockets");
+    }
+
+    function empezarModoAcceso()
+    {
+        connection.send("modoAcceso");
+    }
+</script>
+</body>
+</html>

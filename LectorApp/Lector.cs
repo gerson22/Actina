@@ -34,6 +34,25 @@ namespace LectorApp
             }
         }
 
+        public string LeerHuella()
+        {
+            // Capture a fingerprint.
+            CaptureResult captureResult = lector.Capture(
+                Constants.Formats.Fid.ANSI,
+                Constants.CaptureProcessing.DP_IMG_PROC_DEFAULT,
+                -1,
+                lector.Capabilities.Resolutions[0]
+            );
+
+            // !!! Check for errors, use ‘yield return null; or break;’ to stop.
+            Fmd fmd = FeatureExtraction.CreateFmdFromFid(captureResult.Data, Constants.Formats.Fmd.ANSI).Data;
+            if(fmd != null)
+            {
+                return Fmd.SerializeXml(fmd).Replace("\"", "\\\"");
+            }
+            return "";
+        }
+
         public string inscribirHuella(Sockets socket)
         {
             DataResult<Fmd> enrollmentResult = Enrollment.CreateEnrollmentFmd(

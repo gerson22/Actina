@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using System;
 using System.Drawing;
+using System.Threading;
 
 namespace LectorApp
 {
@@ -8,15 +9,15 @@ namespace LectorApp
     {
         Lector lector;
         Sockets socket;
-        Servidor servidor;
+        Thread oThread;
 
         public Form1()
         {
             InitializeComponent();
 
             IniciarLector();
-            //IniciarServidor();
             IniciarWebSockets();
+            oThread = new Thread(new ThreadStart(this.modoAcceso));
         }
 
         void IniciarLector()
@@ -31,11 +32,6 @@ namespace LectorApp
             {
                 rtbEventos.AppendText("Error al iniciar el lector. " + ex.Message + "\n");
             }
-        }
-
-        void IniciarServidor()
-        {
-            servidor = new Servidor(this);
         }
 
         void IniciarWebSockets()
@@ -57,6 +53,12 @@ namespace LectorApp
                     socket.mandarMensaje(4, data);
                     rtbEventos.AppendText("Huella enviada.\n");
                     break;
+                case "modoAcceso":
+                    iniciarModoAcceso();
+                    break;
+                case "sleep":
+                    terminarModoAcceso();
+                    break;
                 default:
                     if (mensaje.Length >= 50) mensaje = mensaje.Substring(0, 50);
                     rtbEventos.AppendText("Mensaje recibido: " + mensaje + ".\n");
@@ -64,22 +66,34 @@ namespace LectorApp
             }
         }
 
+        private void modoAcceso()
+        {
+            while (true)
+            {
+                Console.WriteLine("modoAcceso.");
+                string fmd = lector.LeerHuella();
+                socket.mandarMensaje(4, fmd);
+            }
+        }
+
+        private void iniciarModoAcceso()
+        {
+            oThread = new Thread(new ThreadStart(this.modoAcceso));
+            oThread.Start();
+            while (!oThread.IsAlive) ;
+            Thread.Sleep(1);
+        }
+
+        private void terminarModoAcceso()
+        {
+            if(oThread.IsAlive)
+                oThread.Abort();
+        }
+
         private void bSalir_Click(object sender, EventArgs e)
         {
             socket.mandarMensaje(2, "lectorApagado");
             this.Close();
-        }
-
-        private void bIniciar_Click(object sender, EventArgs e)
-        {
-            if (servidor.iniciarServidor())
-            {
-                rtbEventos.AppendText("Servidor iniciado en el puerto " + servidor.Puerto + ".\n");
-            }
-            else
-            {
-                rtbEventos.AppendText("Servidor detenido.\n");
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)

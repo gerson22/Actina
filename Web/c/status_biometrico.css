@@ -1,0 +1,12 @@
+.status_text
+{
+    color: red;
+}
+
+.img_reload
+{
+    float: left;
+    width: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+}

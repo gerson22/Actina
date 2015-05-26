@@ -47,14 +47,14 @@ namespace LectorApp
             // 4. FMD
             // 5. Huella
 
-            if(data.Length > 10)
+            /*if(data.Length > 10)
             {
                 forma.rtbEventos.AppendText("Enviando mensaje: {'code': '" + codigo + "', 'data': '" + data.Substring(0, 10) + "'\n");
             }
             else
             {
                 forma.rtbEventos.AppendText("Enviando mensaje: {'code': '" + codigo + "', 'data': '" + data + "'\n");
-            }
+            }*/
             WS.Send("{\"code\":\"" + codigo + "\", \"data\": \"" + data + "\"}");
         }
     }

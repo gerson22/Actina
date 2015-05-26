@@ -41,7 +41,7 @@
 
         <div class="col-md-8">
             <a href="/inscribir.html" ><button>Inscribir</button></a>
-            <a href="" ><button onclick="activarModoEntradas()" style="float: right" >Acceso</button></a>
+            <a href="/acceso.html" ><button style="float: right" >Acceso</button></a>
 
             <table id="tablaClientes">
                 <!-- AJAX -->
