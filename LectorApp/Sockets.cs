@@ -11,7 +11,7 @@ namespace LectorApp
         public Sockets(Form1 forma)
         {
             this.forma = forma;
-            WS = new WebSocket("ws://localhost:4649/Biometria");
+            WS = new WebSocket("ws://localhost:4649/Actina");
 
             WS.OnOpen += conexionAbierta;
             WS.OnMessage += (sender, e) => forma.mensajeRecibido(e.Data);

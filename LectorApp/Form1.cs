@@ -15,7 +15,7 @@ namespace LectorApp
             InitializeComponent();
 
             IniciarLector();
-            IniciarServidor();
+            //IniciarServidor();
             IniciarWebSockets();
         }
 

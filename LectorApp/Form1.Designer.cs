@@ -79,6 +79,7 @@
             // 
             // bIniciarServidor
             // 
+            this.bIniciarServidor.Enabled = false;
             this.bIniciarServidor.Location = new System.Drawing.Point(173, 12);
             this.bIniciarServidor.Name = "bIniciarServidor";
             this.bIniciarServidor.Size = new System.Drawing.Size(75, 23);

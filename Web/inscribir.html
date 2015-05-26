@@ -150,7 +150,7 @@
     function conectar()
     {
         if(!connection)
-            connection = new WebSocket('ws://localhost:4649/Biometria');
+            connection = new WebSocket('ws://localhost:4649/Actina');
         else
             console.log("Conexion ya estába abierta");
 
@@ -179,6 +179,8 @@
 
         connection.onmessage = function (e)
         {
+            if(e.data.length <= 100)
+                console.log(e.data);
             if(e.data.charAt(0) == "{")
             {
                 var datos = $.parseJSON(e.data);

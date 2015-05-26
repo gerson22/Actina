@@ -13,7 +13,7 @@ namespace LectorApp
         {
             this._form = forma;
             wssv = new WebSocketServer(4649);
-            wssv.AddWebSocketService<Biometria>("/Biometria");
+            //wssv.AddWebSocketService<Biometria>("/Biometria");
         }
         
         protected override void OnMessage(MessageEventArgs e)
@@ -45,7 +45,7 @@ namespace LectorApp
         }
     }
 
-    public class Biometria : WebSocketBehavior
+    /*public class Biometria : WebSocketBehavior
     {
         public Biometria()
         {
@@ -60,5 +60,5 @@ namespace LectorApp
             else
                 Console.WriteLine("[Servidor] Mensaje recibido (trimmed): " + e.Data.Substring(0, 50));
         }
-    }
+    }*/
 }
