@@ -48,7 +48,6 @@ namespace LectorApp
             if(fmd != null)
             {
                 return Fmd.SerializeXml(fmd);
-                //return Fmd.SerializeXml(fmd).Replace("\"", "\\\"");
             }
             return "";
         }

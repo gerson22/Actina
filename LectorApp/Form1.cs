@@ -72,7 +72,7 @@ namespace LectorApp
                 Console.WriteLine("modoAcceso.");
                 string fmd = lector.LeerHuella();
                 int usuarioID = lector.GetUsuarioID(fmd);
-                socket.mandarMensaje(4, Convert.ToString(usuarioID));
+                socket.mandarMensaje(6, Convert.ToString(usuarioID));
             }
         }
 

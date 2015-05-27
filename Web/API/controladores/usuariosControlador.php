@@ -9,8 +9,16 @@ class usuariosControlador
             switch($verbo)
             {
                 case "":
-                    // [GET] usuarios
-                    return $this->getUsuarios();
+                    if(!is_null($args[0]))
+                    {
+                        // [GET] usuarios/usuarioID
+                        return new UsuarioModelo($args[0]);
+                    }
+                    else
+                    {
+                        // [GET] usuarios
+                        return $this->getUsuarios();
+                    }
                     break;
                 case "login":
                     // [GET] usuarios/login
