@@ -234,7 +234,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "http://api.actina.nop.al/usuarios",
+                url: "/API/usuarios",
                 headers: { "Authorization": "Basic " + btoa(sessionStorage.getItem("email") + ":" + sessionStorage.getItem("password")) },
                 crossDomain: true,
                 data: "nombre=" + nombre + "&email=" + email + "&peso=" + peso
