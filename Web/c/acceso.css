@@ -2,3 +2,45 @@
 {
     margin-top: 80px;
 }
+
+#main_panel
+{
+    margin-top: 20px;
+    padding-bottom: 50px;
+}
+
+.fondo_blanco
+{
+    background-color: #fafafa;
+}
+
+h3
+{
+    width: 97%;
+    margin: 40px 40px 50px 16px;
+    border-bottom: 1px solid #C1C1B6;
+    float: left;
+}
+
+#datos_generales
+{
+
+}
+
+#datos_generales #bienvenido
+{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#datos_generales #miembroDesde
+{
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 60px;
+}
+
+#datos_generales #nombre
+{
+    margin-top: 10px;
+}
