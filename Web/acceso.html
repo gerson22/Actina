@@ -50,11 +50,20 @@
             <br />
         </div>
 
-        <div class="col-md-12">
-            <h3>Asistencia: </h3>
-            <ul id="lista">
-                <!-- Lista de clientes entrando... -->
-            </ul>
+        <div class="col-md-12 fondo_blanco" id="main_panel">
+            <img src="/i/logo_placeholder.png" class="center" id="negocio_logo" >
+
+            <h3></h3>
+
+            <div class="col-md-4">
+                <img id="foto" src="i/foto_placeholder.png" class="img-circle" >
+            </div>
+            <div class="col-md-8" id="datos_generales">
+                <div id="bienvenido">Bienvenido(a)</div>
+                <div id="nombre"><!-- AJAX --></div>
+                <div id="miembroDesde">Miembro desde:</div>
+                <div id="miembroDesdeVal"><!-- AJAX --></div>
+            </div>
         </div>
 
     </div>
@@ -117,17 +126,9 @@
                         empezarModoAcceso();
                         break;
                     case "2": $("#status_lector").html("No disponible"); $("#status_lector").css("color", "red"); break;
-                    case "4":
-                        console.log("FMD serializado: " + datos.data);
-                        FMD = datos.data;
-                        $("#lista").append("<li>" + FMD + "</li>");
-                        break;
-                    case "5":
-                        $("#huella").removeAttr('src');
-                        $("#huella").attr('src', 'data:image/png;base64,' + datos.data);
-                        break;
                     case "6":
-                        var usuarioID = datos.data;
+                        console.log("UsuarioID: " + datos.data);
+                        var usuario = getUsuario(datos.data);
                         break;
                     default: break;
                 }
@@ -138,6 +139,23 @@
     function checarWebsocket()
     {
         conectar();
+    }
+
+    function getUsuario(usuarioID)
+    {
+        $.ajax({
+            type: "GET",
+            url: "API/usuarios/" + usuarioID,
+            headers: { "Authorization": "Basic " + btoa("admin@admin.com" + ":" + "admin") },
+            crossDomain: true
+        }).done(function(data)
+        {
+            $("#nombre").html(data.nombre);
+            $("#miembroDesdeVal").html(data.clienteDesde);
+        }).fail(function( jqXHR, textStatus, errorThrown )
+        {
+
+        });
     }
 
     function checarLector()
