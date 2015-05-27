@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/c/main.css">
     <link rel="stylesheet" href="/c/general.css">
     <link rel="stylesheet" href="/c/inscripcion.css">
+    <link rel="stylesheet" href="/c/status_biometrico.css">
     <script src="/lib/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -233,6 +234,7 @@
 
             $.ajax({
                 type: "POST",
+                url: "http://api.actina.nop.al/usuarios",
                 headers: { "Authorization": "Basic " + btoa(sessionStorage.getItem("email") + ":" + sessionStorage.getItem("password")) },
                 crossDomain: true,
                 data: "nombre=" + nombre + "&email=" + email + "&peso=" + peso

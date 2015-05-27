@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using System;
-using System.Drawing;
 using System.Threading;
 
 namespace LectorApp
@@ -72,7 +71,8 @@ namespace LectorApp
             {
                 Console.WriteLine("modoAcceso.");
                 string fmd = lector.LeerHuella();
-                socket.mandarMensaje(4, fmd);
+                int usuarioID = lector.GetUsuarioID(fmd);
+                socket.mandarMensaje(4, Convert.ToString(usuarioID));
             }
         }
 

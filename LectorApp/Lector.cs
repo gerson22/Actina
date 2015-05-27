@@ -1,10 +1,8 @@
 ﻿using DPUruNet;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
 
 namespace LectorApp
@@ -12,11 +10,12 @@ namespace LectorApp
     class Lector
     {
         public Reader lector;
+        FMDList listaUsuarios;
         string base64String;
 
         public Lector()
         {
-
+            listaUsuarios = API.GetFMDList();
         }
 
         public void inicializar()
@@ -48,7 +47,8 @@ namespace LectorApp
             Fmd fmd = FeatureExtraction.CreateFmdFromFid(captureResult.Data, Constants.Formats.Fmd.ANSI).Data;
             if(fmd != null)
             {
-                return Fmd.SerializeXml(fmd).Replace("\"", "\\\"");
+                return Fmd.SerializeXml(fmd);
+                //return Fmd.SerializeXml(fmd).Replace("\"", "\\\"");
             }
             return "";
         }
@@ -128,6 +128,24 @@ namespace LectorApp
             bmp.UnlockBits(data);
 
             return bmp;
+        }
+
+        public int GetUsuarioID(string fmd)
+        {
+            Fmd fmd_cliente = Fmd.DeserializeXml(fmd);
+            int usuarioID = 0;
+            foreach (FMDObject usuario in listaUsuarios.data)
+            {
+                Fmd userFmd = Fmd.DeserializeXml(usuario.FMD);
+                CompareResult result = Comparison.Compare(userFmd, 0, fmd_cliente, 0);
+                if (result.Score < 1000)
+                {
+                    usuarioID = Convert.ToInt32(usuario.usuarioID);
+                }
+                Console.WriteLine("Usuario #" + usuario.usuarioID + ": " + result.Score.ToString());
+            }
+
+            return usuarioID;
         }
     }
 }

@@ -69,6 +69,7 @@ class usuarioModelo
         $query = "INSERT INTO usuario SET password = '$password', nombre = '$nombre', email = '$email', peso = $peso, altura = $altura,
                   IMC = $IMC, talla = '$talla', tipoUsuarioID = 2, tipoSubscripcionID = $tipoSubscripcionID, fotoURL = '',
                   vencimiento = '$vencimiento', ultimoAcceso = NOW(), clienteDesde = NOW()";
+        echo $query;
         $userID = APIDatabase::insert($query);
 
         if($FMD != null)
@@ -81,7 +82,6 @@ class usuarioModelo
 
     public function setFMD($FMD)
     {
-        echo "tres";
         $query = "INSERT INTO bio_fmd (usuarioID, FMD) VALUES($this->usuarioID, '$FMD')
             ON DUPLICATE KEY
             UPDATE usuarioID = $this->usuarioID, FMD = '$FMD'";
