@@ -15,4 +15,6 @@ C:\Dev\Actina\LectorApp\bin\Debug\System.Net.Http.Primitives.dll
 C:\Dev\Actina\LectorApp\bin\Debug\System.Net.Http.Extensions.xml
 C:\Dev\Actina\LectorApp\bin\Debug\System.Net.Http.Primitives.xml
 C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.csproj.App.config
+C:\Dev\Actina\LectorApp\bin\Debug\DPUruNet.dll
+C:\Dev\Actina\LectorApp\bin\Debug\DPUruNet.xml
 C:\Dev\Actina\LectorApp\obj\Debug\LectorApp.csprojResolveAssemblyReference.cache

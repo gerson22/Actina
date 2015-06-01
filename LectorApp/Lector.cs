@@ -135,6 +135,7 @@ namespace LectorApp
             int usuarioID = 0;
             foreach (FMDObject usuario in listaUsuarios.data)
             {
+                if (usuario.FMD == "undefined") continue;
                 Fmd userFmd = Fmd.DeserializeXml(usuario.FMD);
                 CompareResult result = Comparison.Compare(userFmd, 0, fmd_cliente, 0);
                 if (result.Score < 1000)
