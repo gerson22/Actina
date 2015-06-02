@@ -33,6 +33,9 @@
         <a href="/administracion.html">
             <img class="icono" src="i/icon_administracion.png" />
         </a>
+        <a href="/admin_stats.html">
+            <img class="icono" src="i/icon_adminstats.png" />
+        </a>
     </div>
 </nav>
 

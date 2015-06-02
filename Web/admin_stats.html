@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Actina</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/c/normalize.css">
+    <link rel="stylesheet" href="/c/main.css">
+    <link rel="stylesheet" href="/c/general.css">
+    <link rel="stylesheet" href="/c/admin_stats.css">
+</head>
+<body>
+
+<nav id="menu_top" class="navbar navbar-default navbar-fixed-top" role="navigation" >
+    <div class="container">
+        <a href="/index.php">
+            <img class="icono_left" src="i/icon_home.png" />
+        </a>
+        <a href="/includes/logout.php">
+            <img class="icono" src="i/icon_logout.png" />
+        </a>
+        <a href="/administracion.html">
+            <img class="icono" src="i/icon_administracion.png" />
+        </a>
+        <a href="/admin_stats.html">
+            <img class="icono" src="i/icon_adminstats.png" />
+        </a>
+    </div>
+</nav>
+
+<div class="container" id="container">
+    <div class="container-fluid fondo_blanco">
+        <div class="col-md-4">
+            <img src="/i/logo_placeholder.png" class="center" id="negocio_logo" >
+            <div id="stats_miembros">
+                <div class="stats_miebros_row">
+                    <div class="stats_label">Miembros activos</div>
+                    <div id="activos_value"></div>
+                </div>
+                <div class="stats_miebros_row">
+                    <div class="stats_label">Miembros inactivos</div>
+                    <div id="inactivos_value"></div>
+                </div>
+                <div class="stats_miebros_row">
+                    <div class="stats_label">Miembros mensuales</div>
+                    <div id="mensuales_value"></div>
+                </div>
+                <div class="stats_miebros_row">
+                    <div class="stats_label">Miembros semanales</div>
+                    <div id="semanales_value"></div>
+                </div>
+                <div class="stats_miebros_row">
+                    <div class="stats_label">Miembros nuevos en el mes</div>
+                    <div id="nuevos_value"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
