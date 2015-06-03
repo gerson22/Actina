@@ -5,3 +5,8 @@ C:\Dev\Actina\NopalSocketServer\bin\Debug\websocket-sharp.dll
 C:\Dev\Actina\NopalSocketServer\bin\Debug\websocket-sharp.xml
 C:\Dev\Actina\NopalSocketServer\obj\Debug\NopalSocketServer.exe
 C:\Dev\Actina\NopalSocketServer\obj\Debug\NopalSocketServer.pdb
+C:\Dev\Actina\NopalSocketServer\bin\Debug\NopalSocketServer.exe.manifest
+C:\Dev\Actina\NopalSocketServer\bin\Debug\NopalSocketServer.application
+C:\Dev\Actina\NopalSocketServer\obj\Debug\NopalSocketServer.TrustInfo.xml
+C:\Dev\Actina\NopalSocketServer\obj\Debug\NopalSocketServer.exe.manifest
+C:\Dev\Actina\NopalSocketServer\obj\Debug\NopalSocketServer.application
