@@ -49,15 +49,6 @@
             <table id="tablaClientes">
                 <!-- AJAX -->
             </table>
-
-            <h3>Estadísticas</h3>
-
-            <div id="graficas_wrapper">
-                <div class="chart_inner_div">
-                    <div class="chart_inner_div_title">Tipo de subscriptor</div>
-                    <canvas id="canvas_subscripcion_pie" width="480" height="400"></canvas>
-                </div>
-            </div>
         </div>
 
         <div class="col-md-4" style="margin-top: 10px">
@@ -82,51 +73,15 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="/lib/main.js"></script>
 <script src="/lib/jquery.validate.min.js"></script>
-<script src="/lib/Chart.min.js"></script>
 <script src="/lib/plugins.js"></script>
 <script src="/lib/jquery.dataTables.min.js"></script>
-<script src="/lib/Chart.min.js" ></script>
 <script>
     var email = sessionStorage.getItem("email");
     var password = sessionStorage.getItem("password");
     var connection;
     var listaUsuarios = [];
-    var ctx_subscripciones_pie;
 
     cargarListaUsuarios();
-
-    function crearChartSubscripciones()
-    {
-        ctx_subscripciones_pie = $("#canvas_subscripcion_pie").get(0).getContext("2d");
-        //var chart_subscripciones_pie = new Chart(ctx_subscripciones_pie);
-
-        var chart_pie_data = [];
-        console.dir(listaUsuarios);
-        for(u in listaUsuarios)
-        {
-            var mensuales = 0;
-            var semanales = 0;
-            var diarias = 0;
-            switch(listaUsuarios[u].tipoSubscripcion)
-            {
-                case "Mensual": mensuales++; break;
-                case "Semanal": semanales++; break;
-                case "Diaria": diarias++; break;
-                default: break;
-            }
-
-            chart_pie_data.push(
-                { value: mensuales, color: "#FF3333", highlight: "#FF5555", label: "Mensuales" },
-                { value: semanales, color: "#3333FF", highlight: "#5555FF", label: "Semanales" },
-                { value: diarias, color: "#33FF33", highlight: "#55FF55", label: "Diarias" }
-            );
-        }
-
-        var options_pie = {animationSteps  : 180};
-
-        console.dir(chart_pie_data);
-        var myPieChart = new Chart(ctx_subscripciones_pie).Pie(chart_pie_data, options_pie);
-    }
 
     function socketStuff()
     {
@@ -191,7 +146,7 @@
             crearChartSubscripciones();
         }).fail(function( jqXHR, textStatus, errorThrown )
         {
-            ;
+
         });
     }
 </script>
