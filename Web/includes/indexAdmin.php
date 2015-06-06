@@ -122,7 +122,7 @@
                 user_temp.push(usuarios[i].fechaVencimiento);
                 datos.push(user_temp);
 
-                /*var dias_restantes = Math.floor((user_temp.fechaVencimientoRaw - Math.floor($.now() / 1000)) / 86400);
+                var dias_restantes = Math.floor((user_temp.fechaVencimientoRaw - Math.floor($.now() / 1000)) / 86400);
 
                 if(dias_restantes <= 0)
                 {
@@ -131,7 +131,7 @@
                         "<div class='nombre'>"+listaUsuarios[i].nombre+"</div>" +
                         "<div class='dias'>Subscripción vencida hace <b>"+Math.abs(dias_restantes)+"</b> dias</div>" +
                     "</div>");
-                }*/
+                }
             }
 
             console.dir(datos);
