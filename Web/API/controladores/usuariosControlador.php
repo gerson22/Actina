@@ -28,6 +28,10 @@ class usuariosControlador
                     // [GET] usuarios/FMD
                     return $this->getFMD();
                     break;
+                case "stats":
+                    // [GET] usuarios/status
+                    return $this->getStats();
+                    break;
                 default:
                     return 404;
                     break;
@@ -93,5 +97,10 @@ class usuariosControlador
     protected function getFMD()
     {
         return usuarioModelo::getFMD();
+    }
+
+    protected function getStats()
+    {
+        return usuarioModelo::getStats();
     }
 }

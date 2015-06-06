@@ -38,7 +38,7 @@
 
 <div class="container" id="container">
     <div class="container-fluid fondo_blanco">
-        <div class="col-md-4">
+        <div class="col-md-4" id="panel_izquierdo">
             <img src="/i/logo_placeholder.png" class="center" id="negocio_logo" >
             <div id="stats_miembros">
                 <div class="stats_miebros_row">
@@ -69,5 +69,29 @@
     </div>
 </div>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/lib/main.js"></script>
+<script>
+    var email = sessionStorage.getItem("email");
+    var password = sessionStorage.getItem("password");
+
+    cargarStatsMiembros();
+
+    function cargarStatsMiembros()
+    {
+        $.ajax({
+            type: "GET",
+            url: "http://api.actina.nop.al/usuarios/stats",
+            headers: { "Authorization": "Basic " + btoa(email + ":" + password) },
+            crossDomain: true
+        }).done(function(data)
+        {
+
+        }).fail(function( jqXHR, textStatus, errorThrown )
+        {
+
+        });
+    }
+</script>
 </body>
 </html>

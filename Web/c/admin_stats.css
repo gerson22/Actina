@@ -7,3 +7,33 @@
 {
     background-color: #FAFAFA;
 }
+
+#panel_izquierdo
+{
+    border-right: 1px solid #EEEEEE;
+}
+
+#stats_miembros
+{
+    float: left;
+}
+
+.stats_miebros_row
+{
+    padding: 10px 40px;
+    float: left;
+    width: 100%;
+}
+
+.stats_label
+{
+    width: 80%;
+    float: left;
+    text-align: right;
+}
+
+.status_value
+{
+    width: 20%;
+    float: right;
+}

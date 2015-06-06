@@ -243,12 +243,19 @@
                 data: "nombre=" + nombre + "&email=" + email + "&peso=" + peso
                     + "&altura=" + altura + "&talla=" + talla + "&tipoSubscripcionID=" + tipoSub
                     + "&FMD=" + FMD
-            }).done(function()
+            }).done(function(xhr, textStatus)
             {
                 alert("Cliente registrado");
-            }).fail(function()
+            }).fail(function(xhr, textStatus)
             {
-                alert("nope.");
+                console.log("Status: " + xhr.status);
+                switch(xhr.status)
+                {
+                    case 401:
+                        alert("Error de autorización");
+                        location.href = "/login.html"; break;
+                    default: break;
+                }
             });
         }
     }

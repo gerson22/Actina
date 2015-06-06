@@ -69,7 +69,6 @@ class usuarioModelo
         $query = "INSERT INTO usuario SET password = '$password', nombre = '$nombre', email = '$email', peso = $peso, altura = $altura,
                   IMC = $IMC, talla = '$talla', tipoUsuarioID = 2, tipoSubscripcionID = $tipoSubscripcionID, fotoURL = '',
                   vencimiento = '$vencimiento', ultimoAcceso = NOW(), clienteDesde = NOW()";
-        echo $query;
         $userID = APIDatabase::insert($query);
 
         if($FMD != null)
@@ -91,6 +90,12 @@ class usuarioModelo
     public static function getFMD()
     {
         $query = "SELECT * FROM bio_fmd";
+        return APIDatabase::select($query);
+    }
+
+    public static function getStats()
+    {
+        $query = "";
         return APIDatabase::select($query);
     }
 }
