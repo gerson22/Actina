@@ -107,7 +107,7 @@
     {
         $.ajax({
             type: "GET",
-            url: "http://api.actina.nop.al/usuarios",
+            url: "/API/usuarios",
             headers: { "Authorization": "Basic " + btoa(email + ":" + password) },
             crossDomain: true
         }).done(function(usuarios)

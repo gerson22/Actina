@@ -50,9 +50,9 @@ namespace LectorApp
                 case "inscribirHuella":
                     string data = lector.inscribirHuella(socket);
                     socket.mandarMensaje(4, data);
-                    rtbEventos.AppendText("Huella enviada.\n");
                     break;
                 case "modoAcceso":
+                    lector.actualizarListaUsuarios();
                     iniciarModoAcceso();
                     break;
                 case "sleep":
@@ -60,7 +60,6 @@ namespace LectorApp
                     break;
                 default:
                     if (mensaje.Length >= 50) mensaje = mensaje.Substring(0, 50);
-                    rtbEventos.AppendText("Mensaje recibido: " + mensaje + ".\n");
                     break;
             }
         }

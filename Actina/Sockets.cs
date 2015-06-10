@@ -21,12 +21,12 @@ namespace LectorApp
 
         void WS_OnError(object sender, ErrorEventArgs e)
         {
-            forma.rtbEventos.AppendText("Cliente error. " + e.Exception + " " + e.Message + "\n");
+            Console.WriteLine("Error: " + e.ToString());
         }
 
         void WS_OnClose(object sender, CloseEventArgs e)
         {
-            forma.rtbEventos.AppendText("Cliente socket desconectado.\n");
+            Console.WriteLine("Cliente socket desconectado.\n");
         }
 
         public void Conectar()
@@ -41,20 +41,6 @@ namespace LectorApp
 
         public void mandarMensaje(int codigo, string data)
         {
-            // 1. LectorActivado
-            // 2. LectorApagado
-            // 3. Lectura capturada
-            // 4. FMD
-            // 5. Huella
-
-            /*if(data.Length > 10)
-            {
-                forma.rtbEventos.AppendText("Enviando mensaje: {'code': '" + codigo + "', 'data': '" + data.Substring(0, 10) + "'\n");
-            }
-            else
-            {
-                forma.rtbEventos.AppendText("Enviando mensaje: {'code': '" + codigo + "', 'data': '" + data + "'\n");
-            }*/
             WS.Send("{\"code\":\"" + codigo + "\", \"data\": \"" + data + "\"}");
         }
     }

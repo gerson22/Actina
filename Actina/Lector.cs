@@ -18,6 +18,11 @@ namespace LectorApp
             listaUsuarios = API.GetFMDList();
         }
 
+        public void actualizarListaUsuarios()
+        {
+            listaUsuarios = API.GetFMDList();
+        }
+
         public void inicializar()
         {
             try
@@ -136,6 +141,7 @@ namespace LectorApp
             foreach (FMDObject usuario in listaUsuarios.data)
             {
                 if (usuario.FMD == "undefined") continue;
+
                 Fmd userFmd = Fmd.DeserializeXml(usuario.FMD);
                 CompareResult result = Comparison.Compare(userFmd, 0, fmd_cliente, 0);
                 if (result.Score < 1000)

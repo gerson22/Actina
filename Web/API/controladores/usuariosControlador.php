@@ -91,6 +91,18 @@ class usuariosControlador
         $tipoSubscripcionID = $_POST["tipoSubscripcionID"];
         $FMD = $_POST["FMD"];
 
+        // Divido $FMD en 2 partes:
+        // 1. el inicio con las tags xml que no quiero modificar
+        // 2. la FMD en si y el las closing tags del xml que no tienen espacios entonces no hay pedo
+        $primera = substr($FMD, 0, 50);
+        $segunda = substr($FMD, 50);
+
+        // Arreglo la segunda cadena: reemplazo los pinches espacios por "+" como debe de ser.
+        $segunda = preg_replace("/ /", "+", $segunda);
+
+        // Vuelvo a pegar la cadena
+        $FMD = $primera.$segunda;
+
         return usuarioModelo::inscribir($nombre, $email, $peso, $altura, $talla, $tipoSubscripcionID, $FMD);
     }
 
