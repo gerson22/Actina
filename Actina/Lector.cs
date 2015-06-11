@@ -41,19 +41,27 @@ namespace LectorApp
         public string LeerHuella()
         {
             // Capture a fingerprint.
-            CaptureResult captureResult = lector.Capture(
-                Constants.Formats.Fid.ANSI,
-                Constants.CaptureProcessing.DP_IMG_PROC_DEFAULT,
-                -1,
-                lector.Capabilities.Resolutions[0]
-            );
-
-            // !!! Check for errors, use ‘yield return null; or break;’ to stop.
-            Fmd fmd = FeatureExtraction.CreateFmdFromFid(captureResult.Data, Constants.Formats.Fmd.ANSI).Data;
-            if(fmd != null)
+            try
             {
-                return Fmd.SerializeXml(fmd);
+                CaptureResult captureResult = lector.Capture(
+                    Constants.Formats.Fid.ANSI,
+                    Constants.CaptureProcessing.DP_IMG_PROC_DEFAULT,
+                    -1,
+                    lector.Capabilities.Resolutions[0]
+                );
+
+                // !!! Check for errors, use ‘yield return null; or break;’ to stop.
+                Fmd fmd = FeatureExtraction.CreateFmdFromFid(captureResult.Data, Constants.Formats.Fmd.ANSI).Data;
+                if (fmd != null)
+                {
+                    return Fmd.SerializeXml(fmd);
+                }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             return "";
         }
 
@@ -136,22 +144,30 @@ namespace LectorApp
 
         public int GetUsuarioID(string fmd)
         {
-            Fmd fmd_cliente = Fmd.DeserializeXml(fmd);
-            int usuarioID = 0;
-            foreach (FMDObject usuario in listaUsuarios.data)
+            try
             {
-                if (usuario.FMD == "undefined") continue;
-
-                Fmd userFmd = Fmd.DeserializeXml(usuario.FMD);
-                CompareResult result = Comparison.Compare(userFmd, 0, fmd_cliente, 0);
-                if (result.Score < 1000)
+                Fmd fmd_cliente = Fmd.DeserializeXml(fmd);
+                int usuarioID = 0;
+                foreach (FMDObject usuario in listaUsuarios.data)
                 {
-                    usuarioID = Convert.ToInt32(usuario.usuarioID);
-                }
-                Console.WriteLine("Usuario #" + usuario.usuarioID + ": " + result.Score.ToString());
-            }
+                    if (usuario.FMD == "undefined") continue;
 
-            return usuarioID;
+                    Fmd userFmd = Fmd.DeserializeXml(usuario.FMD);
+                    CompareResult result = Comparison.Compare(userFmd, 0, fmd_cliente, 0);
+                    if (result.Score < 1000)
+                    {
+                        usuarioID = Convert.ToInt32(usuario.usuarioID);
+                    }
+                    Console.WriteLine("Usuario #" + usuario.usuarioID + ": " + result.Score.ToString());
+                }
+
+                return usuarioID;
+            }
+            catch(SDKException ex)
+            {
+                Console.WriteLine("SDKException: " + ex.Message);
+                return 0;
+            }
         }
     }
 }
