@@ -18,7 +18,6 @@ C:\Dev\Actina\Actina\bin\Debug\System.Runtime.xml
 C:\Dev\Actina\Actina\bin\Debug\System.Threading.Tasks.xml
 C:\Dev\Actina\Actina\bin\Debug\websocket-sharp.xml
 C:\Dev\Actina\Actina\obj\Debug\Actina.csproj.App.config
-C:\Dev\Actina\Actina\obj\Debug\Actina.csprojResolveAssemblyReference.cache
 C:\Dev\Actina\Actina\obj\Debug\Actina.Form1.resources
 C:\Dev\Actina\Actina\obj\Debug\Actina.Properties.Resources.resources
 C:\Dev\Actina\Actina\obj\Debug\Actina.csproj.GenerateResource.Cache

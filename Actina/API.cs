@@ -17,7 +17,7 @@ namespace LectorApp
                 var byteArray = Encoding.ASCII.GetBytes("admin@admin.com:admin");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 
-                string getStringTask = client.GetStringAsync("http://api.nop.al/usuarios/FMD").Result;
+                string getStringTask = client.GetStringAsync("http://api.actina.nop.al/usuarios/FMD").Result;
                 string json_string = "{ 'data': " + getStringTask + " }";
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
