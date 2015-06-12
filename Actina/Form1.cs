@@ -8,7 +8,8 @@ namespace LectorApp
     {
         Lector lector;
         Sockets socket;
-        Thread oThread;
+        Thread accesoThread;
+        Thread inscripcionThread;
 
         public Form1()
         {
@@ -16,7 +17,7 @@ namespace LectorApp
 
             IniciarLector();
             IniciarWebSockets();
-            oThread = new Thread(new ThreadStart(this.modoAcceso));
+            accesoThread = new Thread(new ThreadStart(this.modoAcceso));
         }
 
         void IniciarLector()
@@ -48,6 +49,7 @@ namespace LectorApp
                     socket.mandarMensaje(1, "lectorActivado");
                     break;
                 case "inscribirHuella":
+                    //iniciarModoInscripcion();
                     string data = lector.inscribirHuella(socket);
                     socket.mandarMensaje(4, data);
                     break;
@@ -64,6 +66,26 @@ namespace LectorApp
             }
         }
 
+        #region Inscripcion
+        private void modoInscripcion()
+        {
+            while(true)
+            {
+                Console.WriteLine("modoInscripcion");
+                string data = lector.inscribirHuella(socket);
+                socket.mandarMensaje(4, data);
+            }
+        }
+
+        private void iniciarModoInscripcion()
+        {
+            inscripcionThread = new Thread(new ThreadStart(this.modoInscripcion));
+        }
+
+
+        #endregion
+
+        #region Acceso
         private void modoAcceso()
         {
             while (true)
@@ -77,21 +99,23 @@ namespace LectorApp
 
         private void iniciarModoAcceso()
         {
-            oThread = new Thread(new ThreadStart(this.modoAcceso));
-            oThread.Start();
-            while (!oThread.IsAlive) ;
+            accesoThread = new Thread(new ThreadStart(this.modoAcceso));
+            accesoThread.Start();
+            while (!accesoThread.IsAlive) ;
             Thread.Sleep(1);
         }
 
         private void terminarModoAcceso()
         {
-            if(oThread.IsAlive)
-                oThread.Abort();
+            if (accesoThread.IsAlive)
+                accesoThread.Abort();
         }
+        #endregion
 
         private void bSalir_Click(object sender, EventArgs e)
         {
             socket.mandarMensaje(2, "lectorApagado");
+            terminarModoAcceso();
             this.Close();
         }
 
