@@ -135,7 +135,8 @@
 
     function inscribirHuella()
     {
-        alert("Introduzca el dedo 4 veces");
+        resetProgressBar();
+        alert("Introduzca el mismo dedo multiples veces");
         connection.send("inscribirHuella");
         console.log("Enviando: 'inscribirHuella'");
     }
@@ -146,6 +147,14 @@
         var nuevo = +(actual + cambio);
         if(nuevo >= 100) nuevo = 100;
         console.log("de " + actual + " a " + nuevo);
+        $("#progressBar").attr("aria-valuenow", nuevo);
+        $("#progressBar").css("width", nuevo + "%");
+        $("#progressBar").html(nuevo + "%");
+    }
+
+    function resetProgressBar()
+    {
+        var nuevo = 0;
         $("#progressBar").attr("aria-valuenow", nuevo);
         $("#progressBar").css("width", nuevo + "%");
         $("#progressBar").html(nuevo + "%");
@@ -191,6 +200,11 @@
                 if(datos.code != 5) console.log(datos.data);
                 switch (datos.code)
                 {
+                    case "0":
+                        alert("Error. Vuelva a intentarlo");
+                        resetProgressBar();
+                        connection.send("inscribirHuella");
+                        break;
                     case "1": $("#status_lector").html("Disponible"); $("#status_lector").css("color", "green"); break;
                     case "2": $("#status_lector").html("No disponible"); $("#status_lector").css("color", "red"); break;
                     case "3": progressBar(25); break;

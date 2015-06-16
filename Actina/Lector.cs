@@ -67,15 +67,28 @@ namespace LectorApp
 
         public string inscribirHuella(Sockets socket)
         {
-            DataResult<Fmd> enrollmentResult = Enrollment.CreateEnrollmentFmd(
-                Constants.Formats.Fmd.ANSI,
-                CaptureAndExtractFmd(5, socket)
-            );
+            try
+            {
+                DataResult<Fmd> enrollmentResult = Enrollment.CreateEnrollmentFmd(
+                    Constants.Formats.Fmd.ANSI,
+                    CaptureAndExtractFmd(5, socket)
+                );
 
-            socket.mandarMensaje(5, base64String);
-            Fmd fmd = enrollmentResult.Data;
+                socket.mandarMensaje(5, base64String);
+                Fmd fmd = enrollmentResult.Data;
 
-            return Fmd.SerializeXml(fmd).Replace("\"", "\\\"");
+                return Fmd.SerializeXml(fmd).Replace("\"", "\\\"");
+            }
+            catch (NullReferenceException)
+            {
+                // Dedo leido mal
+                return "0";
+            }
+            catch (SDKException)
+            {
+                // Dedos diferentes / No se puede obtener un FMD
+                return "0";
+            }
         }
 
         IEnumerable<Fmd> CaptureAndExtractFmd(int lecturas, Sockets socket)

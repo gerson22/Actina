@@ -50,8 +50,12 @@ namespace LectorApp
                     break;
                 case "inscribirHuella":
                     //iniciarModoInscripcion();
+                    this.terminarModoAcceso();
                     string data = lector.inscribirHuella(socket);
-                    socket.mandarMensaje(4, data);
+                    if (data == "0")
+                        socket.mandarMensaje(0, null);
+                    else
+                        socket.mandarMensaje(4, data);
                     break;
                 case "modoAcceso":
                     lector.actualizarListaUsuarios();
@@ -71,9 +75,17 @@ namespace LectorApp
         {
             while(true)
             {
-                Console.WriteLine("modoInscripcion");
-                string data = lector.inscribirHuella(socket);
-                socket.mandarMensaje(4, data);
+                try
+                {
+                    Console.WriteLine("modoInscripcion");
+                    string data = lector.inscribirHuella(socket);
+                    socket.mandarMensaje(4, data);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    break;
+                }
             }
         }
 
@@ -81,34 +93,43 @@ namespace LectorApp
         {
             inscripcionThread = new Thread(new ThreadStart(this.modoInscripcion));
         }
-
-
         #endregion
 
         #region Acceso
+        bool modoAccesoON = false;
         private void modoAcceso()
         {
-            while (true)
+            while (modoAccesoON)
             {
-                Console.WriteLine("modoAcceso.");
-                string fmd = lector.LeerHuella();
-                int usuarioID = lector.GetUsuarioID(fmd);
-                socket.mandarMensaje(6, Convert.ToString(usuarioID));
+                try
+                {
+                    Console.WriteLine("modoAcceso.");
+                    string fmd = lector.LeerHuella();
+                    int usuarioID = lector.GetUsuarioID(fmd);
+                    socket.mandarMensaje(6, Convert.ToString(usuarioID));
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    terminarModoAcceso();
+                }
             }
         }
 
         private void iniciarModoAcceso()
         {
+            modoAccesoON = true;
             accesoThread = new Thread(new ThreadStart(this.modoAcceso));
             accesoThread.Start();
             while (!accesoThread.IsAlive) ;
-            Thread.Sleep(1);
+            Thread.Sleep(10);
         }
 
         private void terminarModoAcceso()
         {
-            if (accesoThread.IsAlive)
-                accesoThread.Abort();
+            modoAccesoON = false;
+            /*if (accesoThread.IsAlive)
+                accesoThread.Abort();*/
         }
         #endregion
 
