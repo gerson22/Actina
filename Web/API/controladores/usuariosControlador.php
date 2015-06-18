@@ -32,6 +32,10 @@ class usuariosControlador
                     // [GET] usuarios/status
                     return $this->getStats();
                     break;
+                case "asistencia":
+                    // [GET] usuarios/asistencia
+                    return $this->getAsistencia();
+                    break;
                 default:
                     return 404;
                     break;
@@ -114,5 +118,10 @@ class usuariosControlador
     protected function getStats()
     {
         return usuarioModelo::getStats();
+    }
+
+    protected function getAsistencia()
+    {
+        return usuarioModelo::getAsistencia();
     }
 }

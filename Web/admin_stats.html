@@ -43,27 +43,33 @@
             <div id="stats_miembros">
                 <div class="stats_miebros_row">
                     <div class="stats_label">Miembros activos</div>
-                    <div id="activos_value"></div>
+                    <div class="stats_value" id="activos_value"></div>
                 </div>
                 <div class="stats_miebros_row">
                     <div class="stats_label">Miembros inactivos</div>
-                    <div id="inactivos_value"></div>
+                    <div class="stats_value" id="inactivos_value"></div>
                 </div>
                 <div class="stats_miebros_row">
                     <div class="stats_label">Miembros mensuales</div>
-                    <div id="mensuales_value"></div>
+                    <div class="stats_value" id="mensuales_value"></div>
                 </div>
                 <div class="stats_miebros_row">
                     <div class="stats_label">Miembros semanales</div>
-                    <div id="semanales_value"></div>
+                    <div class="stats_value" id="semanales_value"></div>
                 </div>
                 <div class="stats_miebros_row">
                     <div class="stats_label">Miembros nuevos en el mes</div>
-                    <div id="nuevos_value"></div>
+                    <div class="stats_value" id="nuevos_value"></div>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
+
+            <!-- Asistencia diaria -->
+            <div class="container">
+                <h3>Asistencia</h3>
+                <canvas id="chartAsistencia" width="600" height="300"></canvas>
+            </div>
 
         </div>
     </div>
@@ -71,11 +77,13 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="/lib/main.js"></script>
+<script src="/lib/Chart.min.js"></script>
 <script>
     var email = sessionStorage.getItem("email");
     var password = sessionStorage.getItem("password");
 
     cargarStatsMiembros();
+    cargarChartAsistencia();
 
     function cargarStatsMiembros()
     {
@@ -86,11 +94,63 @@
             crossDomain: true
         }).done(function(data)
         {
+            $("#activos_value").html(data[0].activos);
+            $("#inactivos_value").html(data[0].inactivos);
+            $("#mensuales_value").html(data[0].mensuales);
+            $("#semanales_value").html(data[0].semanales);
+            $("#nuevos_value").html(data[0].nuevosMes);
+        }).fail(function( jqXHR, textStatus, errorThrown )
+        {
+
+        });
+    }
+
+    function cargarChartAsistencia()
+    {
+        $.ajax({
+            type: "GET",
+            url: "http://api.actina.nop.al/usuarios/asistencia",
+            headers: { "Authorization": "Basic " + btoa(email + ":" + password) },
+            crossDomain: true
+        }).done(function(respuesta)
+        {
+            respuesta = respuesta[0];
+            var ctx = document.getElementById("chartAsistencia").getContext("2d");
+            var data =
+            {
+                labels:
+                [
+                    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+                    "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+                ],
+                datasets:
+                [
+                    {
+                        label: "Asistencia mensual",
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(151,187,205,1)",
+                        data: [
+                            respuesta.enero, respuesta.febrero, respuesta.marzo, respuesta.abril,
+                            respuesta.mayo, respuesta.junio,
+                            respuesta.julio, respuesta.agosto, respuesta.septiembre,
+                            respuesta.octubre, respuesta.noviembre, respuesta.diciembre
+                        ]
+                    }
+                ]
+            };
+
+            var chartAsistencia = new Chart(ctx).Line(data, null);
 
         }).fail(function( jqXHR, textStatus, errorThrown )
         {
 
         });
+
+
     }
 </script>
 </body>

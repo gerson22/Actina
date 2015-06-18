@@ -95,7 +95,30 @@ class usuarioModelo
 
     public static function getStats()
     {
-        $query = "";
+        $query = "SELECT
+            (SELECT COUNT(*) FROM usuario WHERE vencimiento >= NOW()) AS activos,
+            (SELECT COUNT(*) FROM usuario WHERE vencimiento < NOW()) AS inactivos,
+            (SELECT COUNT(*) FROM usuario WHERE tipoSubscripcionID = 1) AS mensuales,
+            (SELECT COUNT(*) FROM usuario WHERE tipoSubscripcionID = 2) AS semanales,
+            (SELECT COUNT(*) FROM usuario WHERE (clienteDesde between DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW())) AS nuevosMes";
+        return APIDatabase::select($query);
+    }
+
+    public static function getAsistencia()
+    {
+        $query = "SELECT
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 1) AS enero,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 2) AS febrero,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 3) AS marzo,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 4) AS abril,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 5) AS mayo,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 6) AS junio,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 7) AS julio,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 8) AS agosto,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 9) AS septiembre,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 10) AS octubre,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 11) AS noviembre,
+            (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 12) AS diciembre";
         return APIDatabase::select($query);
     }
 }
