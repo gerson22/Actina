@@ -121,4 +121,42 @@ class usuarioModelo
             (SELECT COUNT(*) FROM asistencia WHERE YEAR(TIMESTAMP) = YEAR(NOW()) AND MONTH(timestamp) = 12) AS diciembre";
         return APIDatabase::select($query);
     }
+
+    public static function getInscripciones()
+    {
+        $query = "SELECT
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 1) AS enero,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 2) AS febrero,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 3) AS marzo,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 4) AS abril,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 5) AS mayo,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 6) AS junio,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 7) AS julio,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 8) AS agosto,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 9) AS septiembre,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 10) AS octubre,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 11) AS noviembre,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'H' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 12) AS diciembre";
+        $hombres = APIDatabase::select($query);
+
+        $query = "SELECT
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 1) AS enero,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 2) AS febrero,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 3) AS marzo,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 4) AS abril,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 5) AS mayo,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 6) AS junio,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 7) AS julio,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 8) AS agosto,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 9) AS septiembre,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 10) AS octubre,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 11) AS noviembre,
+            (SELECT COUNT(*) FROM usuario WHERE sexo = 'M' AND YEAR(clienteDesde) = YEAR(NOW()) AND MONTH(clienteDesde) = 12) AS diciembre";
+        $mujeres = APIDatabase::select($query);
+
+        $respuesta = array();
+        $respuesta["hombres"] = array_values($hombres[0]);
+        $respuesta["mujeres"] = array_values($mujeres[0]);
+        return $respuesta;
+    }
 }

@@ -68,7 +68,15 @@
             <!-- Asistencia diaria -->
             <div class="container">
                 <h3>Asistencia</h3>
-                <canvas id="chartAsistencia" width="600" height="300"></canvas>
+                <canvas id="chartAsistencia" width="650" height="300"></canvas>
+            </div>
+
+            <hr />
+
+            <!-- Inscripciones por género -->
+            <div class="container">
+                <h3>Inscripciones por género</h3>
+                <canvas id="chartInscripciones" width="650" height="300"></canvas>
             </div>
 
         </div>
@@ -84,6 +92,7 @@
 
     cargarStatsMiembros();
     cargarChartAsistencia();
+    cargarChartInscripciones();
 
     function cargarStatsMiembros()
     {
@@ -109,7 +118,7 @@
     {
         $.ajax({
             type: "GET",
-            url: "http://api.actina.nop.al/usuarios/asistencia",
+            url: "/api/usuarios/asistencia",
             headers: { "Authorization": "Basic " + btoa(email + ":" + password) },
             crossDomain: true
         }).done(function(respuesta)
@@ -144,6 +153,56 @@
             };
 
             var chartAsistencia = new Chart(ctx).Line(data, null);
+
+        }).fail(function( jqXHR, textStatus, errorThrown )
+        {
+
+        });
+    }
+
+    function cargarChartInscripciones()
+    {
+        $.ajax({
+            type: "GET",
+            url: "/api/usuarios/inscripciones",
+            headers: { "Authorization": "Basic " + btoa(email + ":" + password) },
+            crossDomain: true
+        }).done(function(respuesta)
+        {
+            var ctx = document.getElementById("chartInscripciones").getContext("2d");
+            var data =
+            {
+                labels:
+                [
+                    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+                    "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+                ],
+                datasets:
+                [
+                    {
+                        label: "Hombres",
+                        fillColor: "rgba(100,149,237,0.2)",
+                        strokeColor: "rgba(100,149,237,1)",
+                        pointColor: "rgba(100,149,237,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(100,149,237,1)",
+                        data: respuesta.hombres
+                    },
+                    {
+                        label: "Mujeres",
+                        fillColor: "rgba(255,105,180,0.2)",
+                        strokeColor: "rgba(255,105,180,1)",
+                        pointColor: "rgba(255,105,180,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(255,105,180,1)",
+                        data: respuesta.mujeres
+                    }
+                ]
+            };
+
+            var chartInscripciones = new Chart(ctx).Line(data, null);
 
         }).fail(function( jqXHR, textStatus, errorThrown )
         {
