@@ -118,7 +118,7 @@
     {
         $.ajax({
             type: "GET",
-            url: "/api/usuarios/asistencia",
+            url: "http://api.actina.nop.al/usuarios/asistencia",
             headers: { "Authorization": "Basic " + btoa(email + ":" + password) },
             crossDomain: true
         }).done(function(respuesta)
@@ -164,7 +164,7 @@
     {
         $.ajax({
             type: "GET",
-            url: "/api/usuarios/inscripciones",
+            url: "http://api.actina.nop.al/usuarios/inscripciones",
             headers: { "Authorization": "Basic " + btoa(email + ":" + password) },
             crossDomain: true
         }).done(function(respuesta)
