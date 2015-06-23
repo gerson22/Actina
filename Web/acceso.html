@@ -132,6 +132,7 @@
                     case "6":
                         console.log("UsuarioID: " + datos.data);
                         var usuario = getUsuario(datos.data);
+                        logAcceso(datos.data);
                         break;
                     default: break;
                 }
@@ -155,6 +156,22 @@
         {
             $("#nombre").html(data.nombre);
             $("#miembroDesdeVal").html(data.clienteDesde);
+        }).fail(function( jqXHR, textStatus, errorThrown )
+        {
+
+        });
+    }
+
+    function logAcceso(usuarioID)
+    {
+        $.ajax({
+            type: "POST",
+            url: "API/usuarios/asistencia/" + usuarioID,
+            headers: { "Authorization": "Basic " + btoa("admin@admin.com" + ":" + "admin") },
+            crossDomain: true
+        }).done(function(data)
+        {
+
         }).fail(function( jqXHR, textStatus, errorThrown )
         {
 

@@ -61,14 +61,14 @@ class usuarioModelo
         return APIDatabase::select($query);
     }
 
-    public static function inscribir($nombre, $email, $peso, $altura, $talla, $tipoSubscripcionID, $FMD)
+    public static function inscribir($nombre, $email, $peso, $altura, $talla, $tipoSubscripcionID, $FMD, $sexo)
     {
         $password = "temp_pass";
         $IMC = 30;
         $vencimiento = null;
         $query = "INSERT INTO usuario SET password = '$password', nombre = '$nombre', email = '$email', peso = $peso, altura = $altura,
                   IMC = $IMC, talla = '$talla', tipoUsuarioID = 2, tipoSubscripcionID = $tipoSubscripcionID, fotoURL = '',
-                  vencimiento = '$vencimiento', ultimoAcceso = NOW(), clienteDesde = NOW()";
+                  vencimiento = '$vencimiento', ultimoAcceso = NOW(), clienteDesde = NOW(), sexo = '$sexo'";
         $userID = APIDatabase::insert($query);
 
         if($FMD != null)
