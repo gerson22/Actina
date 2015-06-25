@@ -49,6 +49,9 @@ class usuariosControlador
         {
             switch($verbo)
             {
+                case "asistencia":
+                    return $this->setAsistencia($args[0]);
+                    break;
                 default:
                     // [POST] usuarios
                     return $this->inscribir();
@@ -133,5 +136,10 @@ class usuariosControlador
     protected function getInscripciones()
     {
         return usuarioModelo::getInscripciones();
+    }
+
+    protected function setAsistencia($usuarioID)
+    {
+        return usuarioModelo::setAsistencia($usuarioID);
     }
 }

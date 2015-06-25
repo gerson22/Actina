@@ -132,7 +132,7 @@
                     case "6":
                         console.log("UsuarioID: " + datos.data);
                         var usuario = getUsuario(datos.data);
-                        logAcceso(datos.data);
+                        if(datos.data != 0) logAcceso(datos.data);
                         break;
                     default: break;
                 }

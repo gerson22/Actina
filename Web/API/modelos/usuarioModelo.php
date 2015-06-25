@@ -159,4 +159,11 @@ class usuarioModelo
         $respuesta["mujeres"] = array_values($mujeres[0]);
         return $respuesta;
     }
+
+    public static function setAsistencia($usuarioID)
+    {
+        $query = "INSERT INTO asistencia SET usuarioID = $usuarioID, timestamp = NOW()";
+        echo $query;
+        return APIDatabase::insert($query);
+    }
 }
