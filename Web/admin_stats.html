@@ -62,6 +62,7 @@
                     <div class="stats_value" id="nuevos_value"></div>
                 </div>
             </div>
+            <button onclick="cargarChartAsistencia()" >reload</button>
         </div>
         <div class="col-md-8">
 
@@ -87,8 +88,16 @@
 <script src="/lib/main.js"></script>
 <script src="/lib/Chart.min.js"></script>
 <script>
+    $(window).on('beforeunload', function(){
+        connection.send("sleep");
+        connection.close();
+    });
+
+    var connection;
     var email = sessionStorage.getItem("email");
     var password = sessionStorage.getItem("password");
+
+    conectar();
 
     cargarStatsMiembros();
     cargarChartAsistencia();
@@ -118,7 +127,7 @@
     {
         $.ajax({
             type: "GET",
-            url: "http://api.actina.nop.al/usuarios/asistencia",
+            url: "api/usuarios/asistencia",
             headers: { "Authorization": "Basic " + btoa(email + ":" + password) },
             crossDomain: true
         }).done(function(respuesta)
@@ -210,6 +219,38 @@
         });
 
 
+    }
+
+    function conectar()
+    {
+        if(!connection)
+            connection = new WebSocket('ws://localhost:4649/Actina');
+        else
+            console.log("Conexion ya estába abierta");
+
+        connection.onopen = function ()
+        {
+            console.log("Conexión abierta");
+        };
+
+        connection.onerror = function (error)
+        {
+            console.log("Error: " + error.data);
+            console.dir(error);
+        };
+
+        connection.onclose = function ()
+        {
+            console.log("Conexión cerrada");
+        }
+
+        connection.onmessage = function (e)
+        {
+            if(e.data == "asistencia")
+            {
+                cargarChartAsistencia();
+            }
+        };
     }
 </script>
 </body>
