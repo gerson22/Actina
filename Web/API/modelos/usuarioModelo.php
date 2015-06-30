@@ -57,7 +57,7 @@ class usuarioModelo
     {
         $query = "SELECT * FROM usuario
             JOIN tipo_subscripcion ON tipo_subscripcion.tipoSubscripcionID = usuario.tipoSubscripcionID
-            WHERE tipoUsuarioID = 2";
+            WHERE tipoUsuarioID = 2 ORDER BY vencimiento ASC";
         return APIDatabase::select($query);
     }
 
