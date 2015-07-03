@@ -67,7 +67,7 @@ class usuarioModelo
         $IMC = 30;
         $vencimiento = null;
         $query = "INSERT INTO usuario SET password = '$password', nombre = '$nombre', email = '$email', peso = $peso, altura = $altura,
-                  IMC = $IMC, talla = '$talla', tipoUsuarioID = 2, tipoSubscripcionID = $tipoSubscripcionID, fotoURL = '',
+                  IMC = $IMC, talla = '$talla', tipoUsuarioID = 2, tipoSubscripcionID = $tipoSubscripcionID,
                   fotoURL = '$foto', vencimiento = '$vencimiento', ultimoAcceso = NOW(), clienteDesde = NOW(), sexo = '$sexo'";
         $userID = APIDatabase::insert($query);
 
