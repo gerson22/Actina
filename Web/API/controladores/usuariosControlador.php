@@ -102,6 +102,7 @@ class usuariosControlador
         $tipoSubscripcionID = $_POST["tipoSubscripcionID"];
         $FMD = $_POST["FMD"];
         $sexo = $_POST["sexo"];
+        $foto = $_POST["foto"];
 
         // Divido $FMD en 2 partes:
         // 1. el inicio con las tags xml que no quiero modificar
@@ -115,7 +116,7 @@ class usuariosControlador
         // Vuelvo a pegar la cadena
         $FMD = $primera.$segunda;
 
-        return usuarioModelo::inscribir($nombre, $email, $peso, $altura, $talla, $tipoSubscripcionID, $FMD, $sexo);
+        return usuarioModelo::inscribir($nombre, $email, $peso, $altura, $talla, $tipoSubscripcionID, $FMD, $sexo, $foto);
     }
 
     protected function getFMD()

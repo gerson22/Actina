@@ -1,6 +1,28 @@
-#form_inscripcion
+#top
 {
     margin-top: 80px;
+}
+
+#panel_imagen
+{
+    padding: 0 15px;
+}
+
+#foto
+{
+    float: left;
+    max-width: 300px;
+    height: auto;
+}
+
+#form_imagen
+{
+    float: left;
+    margin-left: 20px;
+}
+
+#form_inscripcion
+{
     float: left;
 }
 

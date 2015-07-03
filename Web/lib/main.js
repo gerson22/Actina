@@ -1,6 +1,4 @@
-
-
-function cargarUsuarioIndex()
+﻿function cargarUsuarioIndex()
 {
     contenido.load("usuarioIndex.html", function()
     {

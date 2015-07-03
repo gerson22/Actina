@@ -40,95 +40,109 @@
 
 <div class="container" id="container">
     <div class="container-fluid">
-        <form id="form_inscripcion" class="form-responsive" action="">
 
-            <div class="col-md-12" id="top">
-                <img id="foto" src="i/foto_placeholder.png" class="image-responsive" >
+        <div class="col-md-12" id="top">
+
+
+            <div id="panel_imagen">
+                <img id="foto" src="i/fotos/foto_placeholder.png" class="image-responsive" >
+                <!-- loader.gif -->
+                <img style="display:none" id="loader" src="/i/loader.gif" alt="Cargando..." title="Cargando..." />
+                <!-- simple file uploading form -->
+                <form id="form_imagen" action="includes/ajaxUploadFoto.php" method="post" enctype="multipart/form-data">
+                    <input id="uploadImage" type="file" accept="image/*" name="image" value="Seleccionar foto"/>
+                    <input id="button" type="submit" value="Subir">
+                </form>
             </div>
 
-            <h3>Datos generales</h3>
+            <form id="form_inscripcion" class="form-responsive" action="">
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="control-label" for="nombreVal">Nombre</label>
-                    <input type="text" required class="form-control input-md" id="nombreVal" >
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="pesoVal">Peso</label>
-                    <input type="text" required class="form-control input-md" id="pesoVal" >
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="sexoVal">Sexo</label>
-                    <select required class="form-control input-md" id="sexoVal">
-                        <option value="H">Hombre</option>
-                        <option value="M">Mujer</option>
-                    </select>
-                </div>
-            </div>
+                <h3>Datos generales</h3>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="control-label" for="emailVal">Email</label>
-                    <input type="text" required class="form-control input-md" id="emailVal" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="nombreVal">Nombre</label>
+                        <input type="text" required class="form-control input-md" id="nombreVal" >
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="pesoVal">Peso</label>
+                        <input type="text" required class="form-control input-md" id="pesoVal" >
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="sexoVal">Sexo</label>
+                        <select required class="form-control input-md" id="sexoVal">
+                            <option value="H">Hombre</option>
+                            <option value="M">Mujer</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="alturaVal">Altura</label>
-                    <input type="text" required class="form-control input-md" id="alturaVal" >
-                </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="control-label" for="subscripcionVal">Tipo de subscripción</label>
-                    <select required class="form-control input-md" id="subscripcionVal">
-                        <option value="1">Mensual</option>
-                        <option value="2">Semanal</option>
-                        <option value="3">Diaria / Eventual</option>
-                    </select>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="emailVal">Email</label>
+                        <input type="text" required class="form-control input-md" id="emailVal" >
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="alturaVal">Altura</label>
+                        <input type="text" required class="form-control input-md" id="alturaVal" >
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="tallaVal">Talla</label>
-                    <input type="text" required class="form-control input-md" id="tallaVal" >
-                </div>
-            </div>
 
-            <h3>Huella digital</h3>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="subscripcionVal">Tipo de subscripción</label>
+                        <select required class="form-control input-md" id="subscripcionVal">
+                            <option value="1">Mensual</option>
+                            <option value="2">Semanal</option>
+                            <option value="3">Diaria / Eventual</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="tallaVal">Talla</label>
+                        <input type="text" required class="form-control input-md" id="tallaVal" >
+                    </div>
+                </div>
 
-            <div id="huella_wrapper" class="col-md-2">
-                <img id="huella" class="img-responsive" src="i/no_disponible.jpg">
-            </div>
-            <div class="col-md-10">
-                <div class="col-md-6">
-                    <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
-                    Status de la conexión websocket: <div id="status_websocket" class="status_text">Desactivada</div>
-                    <br />
+                <h3>Huella digital</h3>
+
+                <div id="huella_wrapper" class="col-md-2">
+                    <img id="huella" class="img-responsive" src="i/no_disponible.jpg">
                 </div>
-                <div class="col-md-6">
-                    <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
-                    Status del lector: <div id="status_lector" class="status_text">No disponible</div>
-                    <br />
-                </div>
-                <div id="barra_progreso" class="col-md-12">
-                    Progreso:
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                             aria-valuemin="0" aria-valuemax="100" style="width:0%" id="progressBar">
-                            0%
+                <div class="col-md-10">
+                    <div class="col-md-6">
+                        <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
+                        Status de la conexión websocket: <div id="status_websocket" class="status_text">Desactivada</div>
+                        <br />
+                    </div>
+                    <div class="col-md-6">
+                        <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
+                        Status del lector: <div id="status_lector" class="status_text">No disponible</div>
+                        <br />
+                    </div>
+                    <div id="barra_progreso" class="col-md-12">
+                        Progreso:
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100" style="width:0%" id="progressBar">
+                                0%
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-12" id="barra_botones">
-                <button type="button" onclick="inscribirHuella()">Leer huella</button>
-                <button type="button" onclick="inscribir()">Inscribir</button>
-            </div>
-        </form>
+                <div class="col-md-12" id="barra_botones">
+                    <button type="button" onclick="inscribirHuella()">Leer huella</button>
+                    <button type="button" onclick="inscribir()">Inscribir</button>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="/lib/jquery.validate.min.js"></script>
+<script src="/lib/jquery.form.js"></script>
 <script>
     $(window).on('beforeunload', function(){
         connection.close();
@@ -137,6 +151,7 @@
     var connection;
     var lector_disponible;
     var FMD;
+    var foto;
 
     conectar();
 
@@ -264,7 +279,7 @@
                 crossDomain: true,
                 data: "nombre=" + nombre + "&email=" + email + "&peso=" + peso
                     + "&altura=" + altura + "&talla=" + talla + "&tipoSubscripcionID=" + tipoSub
-                    + "&FMD=" + FMD + "&sexo=" + sexo
+                    + "&FMD=" + FMD + "&sexo=" + sexo + "&foto=" + foto
             }).done(function(xhr, textStatus)
             {
                 alert("Cliente registrado");
@@ -283,5 +298,30 @@
         }
     }
 
+    /** Cosas del Ajax image loader */
+    var f = $('#form_imagen');
+    var l = $('#loader'); // loder.gif image
+    var b = $('#button'); // upload button
+    var imagen;
+
+    b.click(function(){
+        // implement with ajaxForm Plugin
+        f.ajaxForm({
+            beforeSend: function(){
+                l.show();
+                b.attr('disabled', 'disabled');
+            },
+            success: function(img){
+                l.hide();
+                f.resetForm();
+                b.removeAttr('disabled');
+                foto = img;
+                $("#foto").prop('src', 'i/fotos/' + foto);
+            },
+            error: function(e){
+                b.removeAttr('disabled');
+            }
+        });
+    });
 </script>
 </body>
