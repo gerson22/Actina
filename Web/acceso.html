@@ -42,6 +42,22 @@
 <div class="container" id="container">
     <div class="container-fluid">
 
+        <div class="col-md-12 fondo_blanco" id="main_panel">
+            <img src="/i/logo_placeholder.png" class="center" id="negocio_logo" >
+
+            <h3></h3>
+
+            <div class="col-md-4">
+                <img id="foto" src="i/fotos/foto_placeholder.png" class="img-circle" width="300" height="300" >
+            </div>
+            <div class="col-md-8" id="datos_generales">
+                <div id="bienvenido">Bienvenido(a)</div>
+                <div id="nombre"><!-- AJAX --></div>
+                <div id="miembroDesde">Miembro desde:</div>
+                <div id="miembroDesdeVal"><!-- AJAX --></div>
+            </div>
+        </div>
+
         <div class="col-md-6">
             <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
             Status de la conexión websocket: <div id="status_websocket" class="status_text">Desactivada</div>
@@ -51,22 +67,6 @@
             <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
             Status del lector: <div id="status_lector" class="status_text">No disponible</div>
             <br />
-        </div>
-
-        <div class="col-md-12 fondo_blanco" id="main_panel">
-            <img src="/i/logo_placeholder.png" class="center" id="negocio_logo" >
-
-            <h3></h3>
-
-            <div class="col-md-4">
-                <img id="foto" src="i/fotos/foto_placeholder.png" class="img-circle" >
-            </div>
-            <div class="col-md-8" id="datos_generales">
-                <div id="bienvenido">Bienvenido(a)</div>
-                <div id="nombre"><!-- AJAX --></div>
-                <div id="miembroDesde">Miembro desde:</div>
-                <div id="miembroDesdeVal"><!-- AJAX --></div>
-            </div>
         </div>
 
     </div>
@@ -156,6 +156,7 @@
         {
             $("#nombre").html(data.nombre);
             $("#miembroDesdeVal").html(data.clienteDesde);
+            $("#foto").attr("src", "/i/fotos/" + data.fotoURL);
         }).fail(function( jqXHR, textStatus, errorThrown )
         {
 
