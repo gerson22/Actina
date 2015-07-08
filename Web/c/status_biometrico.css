@@ -1,12 +1,33 @@
+#status_wrapper
+{
+    width: 425px;
+    float: left;
+    margin-top: 10px;
+}
+
+.status_wrapper_item
+{
+    width: 100%;
+    float: left;
+}
+
+.status_label
+{
+    float: left;
+    width: 250px;
+}
+
 .status_text
 {
     color: red;
+    float: left;
+    width: 150px;
 }
 
 .img_reload
 {
     float: left;
-    width: 50px;
+    width: 15px;
     margin-right: 10px;
     cursor: pointer;
 }

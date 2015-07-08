@@ -108,17 +108,8 @@
                 <div id="huella_wrapper" class="col-md-2">
                     <img id="huella" class="img-responsive" src="i/no_disponible.jpg">
                 </div>
+
                 <div class="col-md-10">
-                    <div class="col-md-6">
-                        <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
-                        Status de la conexión websocket: <div id="status_websocket" class="status_text">Desactivada</div>
-                        <br />
-                    </div>
-                    <div class="col-md-6">
-                        <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
-                        Status del lector: <div id="status_lector" class="status_text">No disponible</div>
-                        <br />
-                    </div>
                     <div id="barra_progreso" class="col-md-12">
                         Progreso:
                         <div class="progress">
@@ -126,6 +117,21 @@
                                  aria-valuemin="0" aria-valuemax="100" style="width:0%" id="progressBar">
                                 0%
                             </div>
+                        </div>
+                    </div>
+
+                    <div id="status_wrapper">
+                        <div class="status_wrapper_item">
+                            <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
+                            <div class="status_label">Status de la conexión websocket: </div>
+                            <div id="status_websocket" class="status_text">Desactivada</div>
+                            <br />
+                        </div>
+                        <div class="status_wrapper_item">
+                            <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
+                            <div class="status_label">Status del lector: </div>
+                            <div id="status_lector" class="status_text">No disponible</div>
+                            <br />
                         </div>
                     </div>
                 </div>

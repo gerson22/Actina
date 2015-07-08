@@ -58,16 +58,21 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
-            Status de la conexión websocket: <div id="status_websocket" class="status_text">Desactivada</div>
-            <br />
+        <div id="status_wrapper">
+            <div class="status_wrapper_item">
+                <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
+                <div class="status_label">Status de la conexión websocket: </div>
+                <div id="status_websocket" class="status_text">Desactivada</div>
+                <br />
+            </div>
+            <div class="status_wrapper_item">
+                <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
+                <div class="status_label">Status del lector: </div>
+                <div id="status_lector" class="status_text">No disponible</div>
+                <br />
+            </div>
         </div>
-        <div class="col-md-6">
-            <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
-            Status del lector: <div id="status_lector" class="status_text">No disponible</div>
-            <br />
-        </div>
+
 
     </div>
 </div>
