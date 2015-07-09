@@ -56,6 +56,35 @@
                 <div id="miembroDesde">Miembro desde:</div>
                 <div id="miembroDesdeVal"><!-- AJAX --></div>
             </div>
+
+            <div class="col-md-4" id="main_stats">
+                <div class="row" >
+                    <div style="width: 50%; float: left;">
+                        <div class="stat_label">Peso inicial:</div>
+                        <div class="stat_value" id="peso_inicialVal"></div>
+                    </div>
+                    <div style="width: 50%; float: left;">
+                        <div class="stat_label">Peso actual:</div>
+                        <div class="stat_value" id="peso_actualVal"></div>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="stat_label">Altura:</div>
+                    <div class="stat_value" id="alturaVal"></div>
+                </div>
+                <div class="row" >
+                    <div class="stat_label">Subscripción:</div>
+                    <div class="stat_value" id="subscripcionVal"></div>
+                </div>
+                <div class="row" >
+                    <div class="stat_label">Vigencia:</div>
+                    <div class="stat_value" id="vigenciaVal"></div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Gráfica de desempeño</h2>
+            </div>
         </div>
 
         <div id="status_wrapper">
@@ -63,8 +92,8 @@
                 <img src="/i/icon_reload_green.png" class="img_reload" onclick="checarWebsocket()"/>
                 <div class="status_label">Status de la conexión websocket: </div>
                 <div id="status_websocket" class="status_text">Desactivada</div>
-                <br />
             </div>
+            <br />
             <div class="status_wrapper_item">
                 <img src="/i/icon_reload_blue.png" class="img_reload" onclick="checarLector()"/>
                 <div class="status_label">Status del lector: </div>
@@ -73,6 +102,7 @@
             </div>
         </div>
 
+        <button onclick="getUsuario(2)" >Test</button>
 
     </div>
 </div>
@@ -162,6 +192,8 @@
             $("#nombre").html(data.nombre);
             $("#miembroDesdeVal").html(data.clienteDesde);
             $("#foto").attr("src", "/i/fotos/" + data.fotoURL);
+            $("#peso_actualVal").html(data.peso);
+            $("#alturaVal").html(data.altura + " m");
         }).fail(function( jqXHR, textStatus, errorThrown )
         {
 

@@ -14,6 +14,11 @@
     background-color: #fafafa;
 }
 
+h2
+{
+    text-align: center;
+}
+
 h3
 {
     width: 97%;
@@ -22,9 +27,14 @@ h3
     float: left;
 }
 
+#nombre
+{
+    font-size: 24px;
+}
+
 #datos_generales
 {
-
+    height: 350px;
 }
 
 #datos_generales #bienvenido
@@ -43,4 +53,22 @@ h3
 #datos_generales #nombre
 {
     margin-top: 10px;
+}
+
+#main_stats
+{
+    border: 2px solid #eee;
+    margin-top: 40px;
+}
+
+#main_stats .row
+{
+    width: 90%;
+    height: 60px;
+    margin: 10px 5%;;
+}
+
+.stat_value
+{
+    font-weight: bold;
 }
